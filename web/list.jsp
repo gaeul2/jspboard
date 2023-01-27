@@ -12,7 +12,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="static/css/style.css">
-	<title>게시판입니다.</title>
+	<title>글 목록</title>
 </head>
 <body>
 <%
@@ -37,16 +37,25 @@
 		<div class = "total"></div>
 		<div class = "page"></div></div>
 	<table class="list-table">
+		<colgroup>
+			<col style="width: 10%;">
+			<col style="width: 10%;">
+			<col style="width: 31%;">
+			<col style="width: 10%;">
+			<col style="width: 17%;">
+			<col style="width: 15%;">
+			<col style="width: 7%;">
+		</colgroup>
 		<thead>
 		<tr>
 			<!--행-->
-			<th class="num">번호</th>
-			<th class="category">구분</th>
-			<th class="title">제목</th>
-			<th class="file">첨부</th>
-			<th class="date">작성일</th>
-			<th class="writer">작성자</th>
-			<th class="hit">조회수</th>
+			<th>번호</th>
+			<th>구분</th>
+			<th>제목</th>
+			<th>첨부</th>
+			<th>작성일</th>
+			<th>작성자</th>
+			<th>조회수</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -72,7 +81,7 @@
 		</tbody>
 	</table>
 		<div>
-			<a href=""><button class="create-btn">글쓰기</button></a>
+			<a href="write.jsp"><button class="create-btn">글쓰기</button></a>
 		</div>
 </div>
 </body>

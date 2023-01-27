@@ -41,7 +41,7 @@ public class BoardDAO {
             System.err.println("에러 내용 :" + e.getMessage());
             e.printStackTrace();
         }
-    
+     
 //        try {
 //            if(con != null)
 //                con.close();
@@ -86,4 +86,23 @@ public class BoardDAO {
         }
         return blist;
     }
+    
+    public List<String> validateform(BoardDTO bean) {
+        List<String> validationResult = new ArrayList<>();
+        //bean이용해서 유효성 검사하기!
+    
+        return validationResult;
+    }
+//    public void createPost(List<String> validate_result) {
+//        try{
+//            String createPostSql = "INSERT INTO board (writer, title, content, subject, category, type, created_at, pass, file_name) VALUES (?,?,?,?,?,?,?,?,?)";
+//
+//
+//            con.prepareStatement(createPostSql);
+//        } catch (Exception e){
+//
+//        }
+//    }
+    
+
 }

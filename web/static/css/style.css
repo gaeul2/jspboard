@@ -99,6 +99,9 @@ body{
     background-color: rgb(174 218 233 / 60%);
 }
 
+.red{
+    color: #800707;
+}
 .create-btn{
     width: 81px;
     height: 39px;
@@ -115,7 +118,7 @@ body{
     text-align: center;
 }
 
-.category {
+.subject {
     width: 80px;
     text-align: center;
 }
@@ -176,47 +179,46 @@ body{
     font-size: 16px;
     width: 200px;
     height: 32px;
-    color: black;
 }
 #unselect{
     color: gray;
     font-size: 16px;
 }
 
-.writer-input{
+.writer{
     width: 370px;
     height: 25px;
     font-size: 16px;
 }
-.detail-option-wrapper{
+.category-wrapper{
     display: flex;
     width: 350px;
 }
-.detail-option-area{
+.category-wrapper-area{
     width: 90px;
     display: flex;
     justify-content: space-between;
     font-size: 16px;
     margin-right: 12px;
 }
-.question-type-wrapper{
+.type-wrapper{
     display: flex;
     width: 375px;
     font-size: 16px;
     justify-content: flex-start;
 }
-.question-type-area{
+.type-area{
     width: 97px;
     display: flex;
     justify-content: flex-start;
     margin-right: 3px;
 }
-.title-input{
+.title{
     width: 98%;
     height: 28px;
     font-size: 16px;
 }
-.content-input{
+.content{
     margin: 1% 0;
     width: 98%;
     resize: none;

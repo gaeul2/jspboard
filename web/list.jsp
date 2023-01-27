@@ -1,4 +1,9 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="model1.BoardDAO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model1.BoardDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,8 +14,12 @@
 	<link rel="stylesheet" href="static/css/style.css">
 	<title>게시판입니다.</title>
 </head>
-
 <body>
+<%
+	BoardDAO bdao = new BoardDAO();
+    List<BoardDTO> blist = bdao.getAllPost();
+%>
+<c:set var="blist" value="<%= blist %>"/>
 <div class="container">
 	<!--검색기능-->
 <%--	<div class ="search-box">--%>
@@ -41,14 +50,25 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr>
-			<td class="num"></td>
-			<td class="category"></td>
-			<td style="" class="title" id= "post-title" onclick="location.href=''" ></td>
-			<td class="date"></td>
-			<td class="writer"></td>
-			<td class="hit"></td>
-		</tr>
+		<c:choose>
+			<c:when test= "${blist.size() == 0}">
+				<tr>
+					<td colspan="7">작성된 글이 존재 하지 않습니다.</td>
+				</tr>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td class="num"></td>
+					<td class="category"></td>
+					<td style="" class="title" id= "post-title" onclick="location.href=''" ></td>
+					<td></td><!--첨부파일이미지-->
+					<td class="date"></td>
+					<td class="writer"></td>
+					<td class="hit"></td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
+
 		</tbody>
 	</table>
 		<div>

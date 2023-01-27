@@ -32,7 +32,9 @@ public class MariaDBConnector {
         try {
             if(con != null)
                 con.close();
-        } catch (SQLException e) {}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

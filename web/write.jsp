@@ -17,6 +17,7 @@
 		<tr>
 			<th>구분<span class="red">*</span></th>
 			<td>
+				<label for="selectBox"></label>
 				<select name="subject" class="select-box" id="selectBox" onchange="selectValue();">
 					<option value="unselect"><span id="unselect">선택해주세요</span></option>
 					<option value="유지보수">유지보수</option>
@@ -35,9 +36,12 @@
 			<td>
 				<div class="category-wrapper">
 					<div class='detail-option-area'>
-						<input type='radio' name="category" value="홈페이지">홈페이지
-						<input type='radio' name="category" value="네트워크">네트워크
-						<input type='radio' name="category" value="서버">서버
+						<label for="homepage"></label>
+						<input type='radio' name="category" id="homepage" value="홈페이지">홈페이지
+						<label for="network"></label>
+						<input type='radio' name="category" id="network" value="네트워크">네트워크
+						<label for="server"></label>
+						<input type='radio' name="category" id="server" value="서버">서버
 					</div>
 				</div>
 			</td>
@@ -47,10 +51,14 @@
 			<td>
 				<div class="type-wrapper">
 					<div class='question-type-area'>
-						<input type='checkbox' name='type[]' value="호스팅">호스팅
-						<input type='checkbox' name='type[]' value="유지보수">유지보수
-						<input type='checkbox' name='type[]' value="서버임대">서버임대
-						<input type='checkbox' name='type[]' value="기타">기타
+						<label for="hosting">호스팅</label>
+						<input type='checkbox' name='type[]' id="hosting" value="호스팅">
+						<label for="repair">유지보수</label>
+						<input type='checkbox' name='type[]' id="repair" value="유지보수">
+						<label for="serverRent">서버임대</label>
+						<input type='checkbox' name='type[]' id="serverRent" value="서버임대">
+						<label for="etc">기타</label>
+						<input type='checkbox' name='type[]' id="etc" value="기타">기타
 					</div>
 				</div>
 			</td>

@@ -12,7 +12,7 @@ public class BoardDTO {
     private String type;
     private java.sql.Date created_at;
     private String pass;
-    private String hit;
+    private int hit;
     private String file_name;
     
     public String getNum() {
@@ -87,11 +87,11 @@ public class BoardDTO {
         this.pass = pass;
     }
     
-    public String getHit() {
+    public int getHit() {
         return hit;
     }
     
-    public void setHit(String hit) {
+    public void setHit(int hit) {
         this.hit = hit;
     }
     

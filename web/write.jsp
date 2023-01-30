@@ -17,7 +17,7 @@
 		<tr>
 			<th>구분<span class="red">*</span></th>
 			<td>
-				<select name="subject" class="select-box">
+				<select name="subject" class="select-box" id="selectBox" onchange="selectValue();">
 					<option value="unselect"><span id="unselect">선택해주세요</span></option>
 					<option value="유지보수">유지보수</option>
 					<option value="문의사항">문의사항</option>
@@ -27,7 +27,7 @@
 		<tr>
 			<th>작성자<span class="red">*</span></th>
 			<td>
-				<input type='text' name="writer" class ="writer">
+				<input type='text' name="writer" class ="writer-input">
 			</td>
 		</tr>
 		<tr>
@@ -58,7 +58,7 @@
 		<tr>
 			<th>제목<span class="red">*</span></th>
 			<td>
-				<input type='text' name="title" class ="title">
+				<input type='text' name="title" class ="title-input">
 			</td>
 		</tr>
 		<tr>
@@ -86,7 +86,9 @@
 	</div>
 	</form>
 	<!--에러메세지 표시되는 곳 -->
+	<div id="error">
 
+	</div>
 </div>
 </body>
 </html>

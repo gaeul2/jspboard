@@ -63,7 +63,7 @@ public class BoardDAO {
                 // 한 게시물씩 DTO에 저장
                 BoardDTO bdto = new BoardDTO();
                 
-                bdto.setNum(rs.getString(1));
+                bdto.setNum(rs.getInt(1));
                 bdto.setWriter(rs.getString(2));
                 bdto.setTitle(rs.getString(3));
                 bdto.setContent(rs.getString(4));
@@ -102,6 +102,45 @@ public class BoardDAO {
     
             con.close();
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public BoardDTO getPost(int num) {
+        BoardDTO bdto = new BoardDTO();
+        try{
+            //쿼리실행
+            String query = "SELECT * FROM board WHERE num=?";
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, num);
+            rs = pstmt.executeQuery();
+            while (rs.next()){
+                bdto.setNum(rs.getInt("num"));
+                bdto.setWriter(rs.getString("writer"));
+                bdto.setTitle(rs.getString("title"));
+                bdto.setContent(rs.getString("content"));
+                bdto.setSubject(rs.getString("subject"));
+                bdto.setCategory(rs.getString("category"));
+                bdto.setType(rs.getString("type"));
+                bdto.setCreated_at(rs.getDate("created_at"));
+                bdto.setPass(rs.getString("pass"));
+                bdto.setHit(rs.getInt("hit"));
+//                bdto.setFile_name(rs.getString(10));
+            }
+            con.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return bdto;
+    }
+    
+    public void hitPlus(int num) {
+        try{
+            String hitPlusSql = "UPDATE board SET hit = hit + 1 WHERE num=? ";
+            pstmt = con.prepareStatement(hitPlusSql);
+            pstmt.setInt(1, num);
+            pstmt.executeUpdate();
+        } catch (Exception e){
             e.printStackTrace();
         }
     }

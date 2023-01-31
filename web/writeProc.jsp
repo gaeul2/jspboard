@@ -17,7 +17,6 @@
 	}
     types = new StringBuilder(types.toString().trim().replace(" ", ", "));;
     bean.setType(types.toString());
-	System.out.println(bean.getType());
 
 	BoardDAO bdao = new BoardDAO();
 	bdao.createPost(bean);

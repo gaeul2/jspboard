@@ -3,7 +3,7 @@ package model1;
 import java.sql.Date;
 
 public class BoardDTO {
-    private String num;
+    private int num;
     private String writer;
     private String title;
     private String content;
@@ -15,11 +15,11 @@ public class BoardDTO {
     private int hit;
     private String file_name;
     
-    public String getNum() {
+    public int getNum() {
         return num;
     }
     
-    public void setNum(String num) {
+    public void setNum(int num) {
         this.num = num;
     }
     

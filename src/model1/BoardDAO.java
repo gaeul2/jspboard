@@ -1,10 +1,8 @@
 package model1;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 
 public class BoardDAO {
@@ -65,16 +63,16 @@ public class BoardDAO {
                 // 한 게시물씩 DTO에 저장
                 BoardDTO bdto = new BoardDTO();
                 
-                bdto.setNum(rs.getString("num"));
-                bdto.setWriter(rs.getString("writer"));
-                bdto.setTitle(rs.getString("title"));
-                bdto.setContent(rs.getString("content"));
-                bdto.setSubject(rs.getString("subject"));
-                bdto.setCategory(rs.getString("Category"));
-                bdto.setType(rs.getString("Type"));
-                bdto.setCreated_at(rs.getDate("Created_at"));
-                bdto.setPass(rs.getString("Pass"));
-                bdto.setHit(rs.getInt("hit"));
+                bdto.setNum(rs.getString(1));
+                bdto.setWriter(rs.getString(2));
+                bdto.setTitle(rs.getString(3));
+                bdto.setContent(rs.getString(4));
+                bdto.setSubject(rs.getString(5));
+                bdto.setCategory(rs.getString(6));
+                bdto.setType(rs.getString(7));
+                bdto.setCreated_at(rs.getDate(8));
+                bdto.setPass(rs.getString(9));
+                bdto.setHit(rs.getInt(10));
                 //파일 구현시
 //                bdto.setFile_name(rs.getString("File_name"));
     

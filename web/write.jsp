@@ -1,8 +1,11 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=utf-8" language="java" pageEncoding="utf-8" %>
+<%
+	request.setCharacterEncoding("utf-8");
+%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
+	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>글 작성</title>
@@ -12,13 +15,13 @@
 
 <body>
 <div class="container">
-	<form method="post" action="writeProc.jsp">
+	<form method="post" action="writeProc.jsp" accept-charset="utf-8">
 	<table class="create-or-update-table">
 		<tr>
 			<th>구분<span class="red">*</span></th>
 			<td>
 				<label for="selectBox"></label>
-				<select name="subject" class="select-box" id="selectBox" onchange="selectValue();">
+				<select name="subject" class="select-box" id="selectBox">
 					<option value="unselect"><span id="unselect">선택해주세요</span></option>
 					<option value="유지보수">유지보수</option>
 					<option value="문의사항">문의사항</option>
@@ -28,7 +31,8 @@
 		<tr>
 			<th>작성자<span class="red">*</span></th>
 			<td>
-				<input type='text' name="writer" class ="writer-input">
+				<label for="writer"></label>
+				<input type='text' name="writer" id="writer" class ="writer-input">
 			</td>
 		</tr>
 		<tr>
@@ -51,14 +55,14 @@
 			<td>
 				<div class="type-wrapper">
 					<div class='question-type-area'>
+						<input type='checkbox' name='type' id="hosting" value="호스팅">
 						<label for="hosting">호스팅</label>
-						<input type='checkbox' name='type[]' id="hosting" value="호스팅">
+						<input type='checkbox' name='type' id="repair" value="유지보수">
 						<label for="repair">유지보수</label>
-						<input type='checkbox' name='type[]' id="repair" value="유지보수">
+						<input type='checkbox' name='type' id="serverRent" value="서버임대">
 						<label for="serverRent">서버임대</label>
-						<input type='checkbox' name='type[]' id="serverRent" value="서버임대">
+						<input type='checkbox' name='type' id="etc" value="기타">
 						<label for="etc">기타</label>
-						<input type='checkbox' name='type[]' id="etc" value="기타">기타
 					</div>
 				</div>
 			</td>
@@ -66,13 +70,15 @@
 		<tr>
 			<th>제목<span class="red">*</span></th>
 			<td>
-				<input type='text' name="title" class ="title-input">
+				<label for="title"></label>
+				<input type='text' name="title" id="title" class ="title-input">
 			</td>
 		</tr>
 		<tr>
 			<th>내용<span class="red">*</span></th>
 			<td>
-				<textarea name="content" cols=75 rows=15 class ="content"></textarea>
+				<label for="content"></label>
+				<textarea name="content" cols=75 rows=15 class ="content" id="content"></textarea>
 			</td>
 		</tr>
 		<tr>
@@ -84,7 +90,8 @@
 		<tr>
 			<th>비밀번호</th>
 			<td>
-			<input type="password" name="pass"><span>게시글 수정, 삭제시 사용할 비밀번호를 입력하세요.</span>
+				<label for="pass"></label>
+				<input type="password" name="pass" id="pass"><span>게시글 수정, 삭제시 사용할 비밀번호를 입력하세요.</span>
 			</td>
 		</tr>
 	</table>

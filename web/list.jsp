@@ -66,15 +66,17 @@
 				</tr>
 			</c:when>
 			<c:otherwise>
-				<tr>
-					<td class="num"></td>
-					<td class="category"></td>
-					<td style="" class="title" id= "post-title" onclick="location.href=''" ></td>
-					<td></td><!--첨부파일이미지-->
-					<td class="date"></td>
-					<td class="writer"></td>
-					<td class="hit"></td>
-				</tr>
+				<c:forEach var="bdto" items="${blist}">
+					<tr>
+						<td class="num">${bdto.num}</td>
+						<td class="category">${bdto.category}</td>
+						<td style="" class="title" id= "post-title" onclick="location.href='showpost.jsp?num=${bdto.num}'" >${bdto.title}</td>
+						<td></td><!--첨부파일이미지-->
+						<td class="date">${bdto.created_at}</td>
+						<td class="writer">${bdto.writer}</td>
+						<td class="hit">${bdto.hit}</td>
+					</tr>
+				</c:forEach>
 			</c:otherwise>
 		</c:choose>
 

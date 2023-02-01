@@ -10,7 +10,7 @@
 	<%
 		request.setCharacterEncoding("utf-8");
 		int num = Integer.parseInt(request.getParameter("num"));
-		System.out.println("num:" + num);
+
 		BoardDAO bdao = new BoardDAO();
 		BoardDTO bdto = bdao.getPost(num);
 	%>
@@ -102,9 +102,10 @@
 			<div class = "lower-btn">
 				<!--proc에서 bdto받을때 쓸까?싶어서 넣어놓음-->
 				<input type="hidden" name="num" value="${bdto.num}">
+				<input type="hidden" name="return" value="1">
 				<input type="submit" value="저장" class="button">
 				<!--수정하다 취소할 때 조회수 늘리지 않도록 return이라는 파라미터를 1로 넘김-->
-				<a href="showPost.jsp?num=${bdto.num}&return=1"><input type="button" value="취소" class="button"></a>
+				<a href="showPost.jsp?"><input type="button" value="취소" class="button"></a>
 			</div>
 		</form>
 		<!--에러메세지 표시되는 곳 -->

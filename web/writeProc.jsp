@@ -1,6 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="model1.BoardDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-
+<%@ page import="Util.TypeValidate" %>
 <%
 	request.setCharacterEncoding("utf-8");
 	response.setCharacterEncoding("utf-8");
@@ -10,17 +11,16 @@
 </jsp:useBean>
 
 <%
-	String[] type = (request.getParameterValues("type") == null)? new String[]{""} :request.getParameterValues("type");
-	StringBuilder types = new StringBuilder();
-	for (String s : type) {
-		types.append(s).append(" ");
+	if( request.getParameterValues("type") != null) {
+		TypeValidate typeValidator = new TypeValidate();
+		typeValidator.makeSentence(bean, request.getParameterValues("type"));
+	} else {
+        bean.setType("");
 	}
-    types = new StringBuilder(types.toString().trim().replace(" ", ", "));;
-    bean.setType(types.toString());
 
 	BoardDAO bdao = new BoardDAO();
 	bdao.createPost(bean);
 
-    response.sendRedirect("/list.jsp");
+	response.sendRedirect("/list.jsp");
 %>
 <h1> writeProc.jsp</h1>

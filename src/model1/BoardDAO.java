@@ -70,7 +70,7 @@ public class BoardDAO {
                 bdto.setSubject(rs.getString(5));
                 bdto.setCategory(rs.getString(6));
                 bdto.setType(rs.getString(7));
-                bdto.setCreated_at(rs.getDate(8));
+                bdto.setCreated_at(rs.getDate(8).toString());
                 bdto.setPass(rs.getString(9));
                 bdto.setHit(rs.getInt(10));
                 //파일 구현시
@@ -122,7 +122,7 @@ public class BoardDAO {
                 bdto.setSubject(rs.getString("subject"));
                 bdto.setCategory(rs.getString("category"));
                 bdto.setType(rs.getString("type"));
-                bdto.setCreated_at(rs.getDate("created_at"));
+                bdto.setCreated_at(rs.getString("created_at"));
                 bdto.setPass(rs.getString("pass"));
                 bdto.setHit(rs.getInt("hit"));
 //                bdto.setFile_name(rs.getString(10));
@@ -143,5 +143,25 @@ public class BoardDAO {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+    
+    public void updatePost(BoardDTO updateDto) {
+        try{
+            String updatePostSql = "UPDATE board SET writer=?, title=?, content=?, subject=?, category=?, type=? WHERE num= ?";
+            pstmt = con.prepareStatement(updatePostSql);
+            pstmt.setString(1,updateDto.getWriter());
+            pstmt.setString(2,updateDto.getTitle());
+            pstmt.setString(3,updateDto.getContent());
+            pstmt.setString(4,updateDto.getSubject());
+            pstmt.setString(5,updateDto.getCategory());
+            pstmt.setString(6,updateDto.getType());
+            pstmt.setInt(7,updateDto.getNum());
+            pstmt.executeUpdate();
+            
+            con.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    
     }
 }

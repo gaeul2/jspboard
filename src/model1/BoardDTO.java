@@ -1,7 +1,5 @@
 package model1;
 
-import java.sql.Date;
-
 public class BoardDTO {
     private int num;
     private String writer;
@@ -10,7 +8,7 @@ public class BoardDTO {
     private String subject;
     private String category;
     private String type;
-    private java.sql.Date created_at;
+    private String created_at;
     private String pass;
     private int hit;
     private String file_name;
@@ -71,11 +69,11 @@ public class BoardDTO {
         this.type = type;
     }
     
-    public Date getCreated_at() {
+    public String getCreated_at() {
         return created_at;
     }
     
-    public void setCreated_at(Date created_at) {
+    public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
     
@@ -102,5 +100,4 @@ public class BoardDTO {
     public void setFile_name(String file_name) {
         this.file_name = file_name;
     }
-    
 }

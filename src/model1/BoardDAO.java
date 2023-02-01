@@ -140,6 +140,7 @@ public class BoardDAO {
             pstmt = con.prepareStatement(hitPlusSql);
             pstmt.setInt(1, num);
             pstmt.executeUpdate();
+            
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -163,5 +164,17 @@ public class BoardDAO {
             e.printStackTrace();
         }
     
+    }
+    
+    public void deletePost(int num) {
+        try{
+            String deleteSql = "DELETE FROM board WHERE num = ?";
+            pstmt = con.prepareStatement(deleteSql);
+            pstmt.setInt(1,num);
+            pstmt.executeUpdate();
+            con.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

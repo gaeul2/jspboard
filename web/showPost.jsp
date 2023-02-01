@@ -64,7 +64,7 @@
 		</table>
 		<div class= "read-lower-wrapper">
 			<a href="<c:url value="/updatePost.jsp"><c:param name="num" value="${post.num}"/></c:url>"><input type="button" value="수정"></a>
-			<a href="<c:url value="/deletePost.jsp"><c:param name="num" value="${post.num}"/></c:url>"><input type="button" value="삭제"></a>
+			<a href="<c:url value="/deletePostProc.jsp"><c:param name="num" value="${post.num}"/></c:url>"><input type="button" value="삭제"></a>
 			<a href="<c:url value="/list.jsp"/>"><input type="button" value="목록"></a>
 		</div>
 	</div>

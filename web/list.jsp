@@ -6,7 +6,6 @@
 
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,12 +14,18 @@
 	<title>글 목록</title>
 </head>
 <body>
+<c:set var="POSTS_PER_PAGE" value="10"/>
+<c:set var="POSTS_PER_BLOCK" value="2"/>
 <%
 	BoardDAO bdao = new BoardDAO();
     List<BoardDTO> blist = bdao.getAllPost();
+    int totalBoardCount = bdao.getAllPostCount();
+	System.out.println("게시글 개수 " + totalBoardCount);
+
 %>
 <c:set var="blist" value="<%= blist %>"/>
 <div class="container">
+	<%= totalBoardCount %>
 	<!--검색기능-->
 <%--	<div class ="search-box">--%>
 <%--		<form method="post" action="">--%>

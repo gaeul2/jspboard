@@ -54,9 +54,10 @@ public class BoardDAO {
     public List<BoardDTO> getAllPost() {
         List<BoardDTO> blist = new ArrayList<>();
         
+        //검색없이 일단 페이징 먼저
         try {
             //검색 구현시 쿼리 변경할 예정
-            String query = "SELECT * FROM board ORDER BY num DESC";
+            String query = "SELECT * FROM board ORDER BY num DESC LIMIT 0, 10";
             pstmt = con.prepareStatement(query);
             rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -78,7 +79,7 @@ public class BoardDAO {
     
                 blist.add(bdto);
             }
-            con.close();
+            
         } catch (Exception e) {
             System.out.println("게시물 조회 중 예외 발생");
             e.printStackTrace();
@@ -99,11 +100,26 @@ public class BoardDAO {
             pstmt.setString(7, bean.getPass());
             pstmt.setInt(8, 0);
             pstmt.executeUpdate();
-    
-            con.close();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    //검색기능 추가되면 매개변수 받을것
+    public int getAllPostCount() {
+        int totalCount = 0;
+        try{
+            String countSql = "SELECT COUNT(*) FROM board";
+            pstmt = con.prepareStatement(countSql);
+            rs = pstmt.executeQuery();
+            rs.next();
+            totalCount = rs.getInt(1);
+            
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return totalCount;
     }
     
     public BoardDTO getPost(int num) {
@@ -127,7 +143,7 @@ public class BoardDAO {
                 bdto.setHit(rs.getInt("hit"));
 //                bdto.setFile_name(rs.getString(10));
             }
-            con.close();
+
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -159,7 +175,6 @@ public class BoardDAO {
             pstmt.setInt(7,updateDto.getNum());
             pstmt.executeUpdate();
             
-            con.close();
         } catch (Exception e){
             e.printStackTrace();
         }

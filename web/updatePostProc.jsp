@@ -1,9 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="Util.TypeValidate" %>
 <%@ page import="model1.BoardDAO" %>
-<%
-	request.setCharacterEncoding("utf-8");
-%>
+
+
 <jsp:useBean id="updateDto" class="model1.BoardDTO">
 	<jsp:setProperty name="updateDto" property="*"/>
 </jsp:useBean>

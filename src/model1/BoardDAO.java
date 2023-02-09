@@ -3,6 +3,8 @@ package model1;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 
 public class BoardDAO {
@@ -50,15 +52,28 @@ public class BoardDAO {
         return con;
     }
     
+    public void close(){
+        try{
+            con.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    
     //전체 게시글 목록 가져오기
-    public List<BoardDTO> getAllPost() {
+    public List<BoardDTO> getAllPost(Map<String, Object> map) {
         List<BoardDTO> blist = new ArrayList<>();
+        
+        String start = map.get("start").toString();
+        String limit = map.get("limit").toString();
         
         //검색없이 일단 페이징 먼저
         try {
             //검색 구현시 쿼리 변경할 예정
-            String query = "SELECT * FROM board ORDER BY num DESC LIMIT 0, 10";
+            String query = "SELECT * FROM board ORDER BY num DESC LIMIT ? OFFSET ? ";
             pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, Integer.parseInt(limit));
+            pstmt.setInt(2, Integer.parseInt(start));
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 // 한 게시물씩 DTO에 저장

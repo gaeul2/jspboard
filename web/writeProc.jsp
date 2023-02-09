@@ -2,10 +2,7 @@
 <%@ page import="model1.BoardDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ page import="Util.TypeValidate" %>
-<%
-	request.setCharacterEncoding("utf-8");
-	response.setCharacterEncoding("utf-8");
-%>
+
 <jsp:useBean id="bean" class="model1.BoardDTO">
 	<jsp:setProperty name="bean" property="*"/>
 </jsp:useBean>

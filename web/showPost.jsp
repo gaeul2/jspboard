@@ -65,10 +65,8 @@
 						<c:when test="${ not (empty post.file_name)}">
 							${post.file_name}
 							<a href='Download.jsp?originalFileName=${ URLEncoder.encode(post.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(post.save_file_name,"utf-8")}'>다운로드</a>
-
 						</c:when>
 						<c:otherwise>
-							<p>${post.file_name} ${post.file_name.length()}</p>
 						</c:otherwise>
 					</c:choose>
 				</td>

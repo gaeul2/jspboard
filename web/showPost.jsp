@@ -1,5 +1,6 @@
 <%@ page import="model1.BoardDAO" %>
 <%@ page import="model1.BoardDTO" %>
+<%@ page import="java.net.URLEncoder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -59,7 +60,18 @@
 			</tr>
 			<tr>
 				<th>첨부파일</th>
-				<td></td>
+				<td>
+					<c:choose>
+						<c:when test="${ not (empty post.file_name)}">
+							${post.file_name}
+							<a href='Download.jsp?originalFileName=${ URLEncoder.encode(post.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(post.save_file_name,"utf-8")}'>다운로드</a>
+
+						</c:when>
+						<c:otherwise>
+							<p>${post.file_name} ${post.file_name.length()}</p>
+						</c:otherwise>
+					</c:choose>
+				</td>
 			</tr>
 		</table>
 		<div class= "read-lower-wrapper">

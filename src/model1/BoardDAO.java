@@ -157,7 +157,8 @@ public class BoardDAO {
                 bdto.setCreated_at(rs.getString("created_at"));
                 bdto.setPass(rs.getString("pass"));
                 bdto.setHit(rs.getInt("hit"));
-//                bdto.setFile_name(rs.getString(10));
+                bdto.setFile_name(rs.getString("file_name"));
+                bdto.setSave_file_name(rs.getString("save_file_name"));
             }
 
         } catch (Exception e){

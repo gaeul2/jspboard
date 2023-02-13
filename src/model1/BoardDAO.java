@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 
 public class BoardDAO {
@@ -104,7 +103,7 @@ public class BoardDAO {
     
     public void createPost(BoardDTO bean) {
         try {
-            String createPostSql = "INSERT INTO board (writer, title, content, subject, category, type, created_at, pass,hit) VALUES(?,?,?,?,?,?,now(),?,?)";
+            String createPostSql = "INSERT INTO board (writer, title, content, subject, category, type, created_at, pass,hit,file_name, save_file_name) VALUES(?,?,?,?,?,?,now(),?,?,?,?)";
             pstmt = con.prepareStatement(createPostSql);
             pstmt.setString(1, bean.getWriter());
             pstmt.setString(2, bean.getTitle());
@@ -114,6 +113,8 @@ public class BoardDAO {
             pstmt.setString(6, bean.getType());
             pstmt.setString(7, bean.getPass());
             pstmt.setInt(8, 0);
+            pstmt.setString(9, bean.getFile_name());
+            pstmt.setString(10, bean.getSave_file_name());
             pstmt.executeUpdate();
             
         } catch (Exception e) {

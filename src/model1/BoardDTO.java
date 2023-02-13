@@ -12,6 +12,7 @@ public class BoardDTO {
     private String pass;
     private int hit;
     private String file_name;
+    private String save_file_name;
     
     public int getNum() {
         return num;
@@ -99,5 +100,13 @@ public class BoardDTO {
     
     public void setFile_name(String file_name) {
         this.file_name = file_name;
+    }
+    
+    public String getSave_file_name() {
+        return save_file_name;
+    }
+    
+    public void setSave_file_name(String save_file_name) {
+        this.save_file_name = save_file_name;
     }
 }

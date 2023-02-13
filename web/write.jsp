@@ -13,7 +13,7 @@
 
 <body>
 <div class="container">
-	<form method="post" action="writeProc.jsp" accept-charset="utf-8">
+	<form method="post" action="writeProc.jsp" enctype="multipart/form-data">
 	<table class="create-or-update-table">
 		<tr>
 			<th>구분<span class="red">*</span></th>

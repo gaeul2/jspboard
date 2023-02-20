@@ -13,7 +13,7 @@
 
 <body>
 <div class="container">
-	<form method="post" action="writeProc.jsp" enctype="multipart/form-data">
+	<form method="post" action="writeProc.jsp" enctype="multipart/form-data" return = "false">
 	<table class="create-or-update-table">
 		<tr>
 			<th>구분<span class="red">*</span></th>
@@ -94,8 +94,8 @@
 		</tr>
 	</table>
 	<div class = "lower-btn">
-		<input type="submit" value="저장" class="button">
-		<a href="list.jsp"><input type="button" value="취소" class="button"></a>
+		<input type="button" value="저장" class="button" onclick="inputValidation()">
+		<a href="list.jsp"><input type="button" value="취소" class="button" onclick="inputValidation(this)"></a>
 	</div>
 	</form>
 	<!--에러메세지 표시되는 곳 -->

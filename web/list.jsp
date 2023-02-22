@@ -14,7 +14,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="static/css/style.css">
+	<script type="text/javascript" src="static/js/search.js"></script>
 	<title>글 목록</title>
+
 </head>
 <body>
 <%
@@ -50,15 +52,16 @@
 <c:set var="blist" value="<%= blist %>"/>
 <div class="container">
 	<!--검색기능-->
-<%--	<div class ="search-box">--%>
-<%--		<form method="post" action="">--%>
-<%--			제목 <input type="text" name="title_search">--%>
-<%--			작성자 <input type="text" name="writer_search">--%>
-<%--			작성일<input type="date" name="start_date">--%>
-<%--			~ <input type="date" name="end_date">--%>
-<%--			<button>검색</button>--%>
-<%--		</form>--%>
-<%--	</div>--%>
+	<div class ="search-box">
+		<form method="post" action="" onsubmit="return searchValidate();">
+			제목 <input type="text" name="title_search">
+			작성자 <input type="text" name="writer_search">
+			작성일<input type="date" name="start_date">
+			~ <input type="date" name="end_date">
+			<button >검색</button>
+		</form>
+	</div>
+	<!--검색값 배열로 저장-->
 	<div class="message-box">
 	</div>
 	<div class=status-wrapper>

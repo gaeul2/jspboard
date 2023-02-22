@@ -69,7 +69,12 @@ public class BoardDAO {
         //검색없이 일단 페이징 먼저
         try {
             //검색 구현시 쿼리 변경할 예정
-            String query = "SELECT * FROM board ORDER BY num DESC LIMIT ? OFFSET ? ";
+            String query = "SELECT * FROM board  ";
+            if (map.get("searchThings") != null){
+            
+            }
+            
+            query += "ORDER BY num DESC LIMIT ? OFFSET ?";
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1, Integer.parseInt(limit));
             pstmt.setInt(2, Integer.parseInt(start));

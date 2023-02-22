@@ -1,5 +1,7 @@
 import Util.Validations;
 import com.oreilly.servlet.MultipartRequest;
+import model1.BoardDAO;
+import model1.BoardDTO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -8,9 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-import model1.BoardDAO;
-import model1.BoardDTO;
 
 @WebServlet(name = "writeController", urlPatterns = "/write.do")
 public class WriteController extends HttpServlet {
@@ -56,6 +55,7 @@ public class WriteController extends HttpServlet {
         BoardDAO bdao = new BoardDAO();
         bdao.createPost(bdto);
 
+        //list.jsp열어주는 서블릿과 연결할것.
         resp.sendRedirect("/list.jsp");
 
     }

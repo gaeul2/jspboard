@@ -112,7 +112,7 @@
 					<tr>
 						<td class="num"><%= indexNum %></td>
 						<td class="category">${bdto.subject}</td>
-						<td style="" class="title" id= "post-title" onclick="location.href='showPost.jsp?num=${bdto.num}'" >${bdto.title}</td>
+						<td style="" class="title" id= "post-title" onclick="location.href='view.do?num=${bdto.num}'" >${bdto.title}</td>
 						<td></td><!--첨부파일이미지-->
 						<td class="date">${bdto.created_at}</td>
 						<td class="writer">${bdto.writer}</td>

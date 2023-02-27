@@ -25,8 +25,7 @@ public class WriteController extends HttpServlet {
         String saveDirectory = req.getServletContext().getRealPath("/uploads");
         ServletContext application = getServletContext();
         int maxPostSize = 1024* 1000 * 5;
-
-
+        
 //        파일 업로드
         MultipartRequest mr = Util.File.uploadFile(req, saveDirectory, maxPostSize);
 

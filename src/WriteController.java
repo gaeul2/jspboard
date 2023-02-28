@@ -28,7 +28,7 @@ public class WriteController extends HttpServlet {
 
 
 //        파일 업로드
-        MultipartRequest mr = Util.File.uploadFile(req, saveDirectory, maxPostSize);
+        MultipartRequest mr = Util.FileUtil.uploadFile(req, saveDirectory, maxPostSize);
 
         BoardDTO bdto = new BoardDTO();
         bdto.setWriter(mr.getParameter("writer"));

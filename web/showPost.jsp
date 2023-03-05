@@ -65,7 +65,7 @@
 					<c:choose>
 						<c:when test="${ not (empty bdto.file_name)}">
 							${bdto.file_name}
-							<a href='Download.jsp?originalFileName=${ URLEncoder.encode(bdto.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(bdto.save_file_name,"utf-8")}'>다운로드</a>
+							<a href='Download.do?originalFileName=${ URLEncoder.encode(bdto.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(bdto.save_file_name,"utf-8")}&num=${bdto.num}'>다운로드</a>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>

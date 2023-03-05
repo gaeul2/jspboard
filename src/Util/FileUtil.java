@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
@@ -33,8 +34,19 @@ public class FileUtil {
                 originalFileName = new String(originalFileName.getBytes("KSC5601"), StandardCharsets.ISO_8859_1);
             }
             
-            
-        } catch (Exception e){
+            //파일 다운로드 용 응답 헤더 설정
+            //파일 다운로드용 응답 헤더 설정
+            resp.reset(); //응답헤더를 초기화
+		/*파일 다운로드 창을 띄우기 위한 콘텐츠 타입 지정. octet-stream은 8비트 단위의 바이너리 데이터.
+			octet-stream을 응답헤더로 설정하게 되면 파일종류에 상관없이 웹브라우저는 다운로드 창을 띄움*/
+            resp.setContentType("application/octet-stream");
+            //웹 브라우저에서 파일 다운로드 창이 뜰때 원본파일명이 기본으로 입력되어있도록 설정
+            resp.setHeader("Content-Disposition", "attachment; filename=\"" + originalFileName + "\"");
+            resp.setHeader("Content-Length", "" + targetFile.length());
+    
+        } catch (FileNotFoundException e){
+            System.out.println("파일을 찾을 수 없습니다." );
+            e.printStackTrace();
         
         }
         catch (Exception e){

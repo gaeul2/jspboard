@@ -109,7 +109,6 @@
 		</form>
 		<!--에러메세지 표시되는 곳 -->
 		<div id="error">
-
 		</div>
 	</div>
 	</body>

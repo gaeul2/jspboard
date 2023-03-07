@@ -22,6 +22,7 @@ public class FileUtil {
     
     public static void download(HttpServletRequest req, HttpServletResponse resp, String directory, String saveFilename, String originalFileName){
         String saveDirectory = req.getServletContext().getRealPath(directory);
+        
         try{
             File targetFile = new File(saveDirectory, saveFilename);
             InputStream inputStream = new FileInputStream(targetFile);
@@ -35,7 +36,6 @@ public class FileUtil {
             }
             
             //파일 다운로드 용 응답 헤더 설정
-            //파일 다운로드용 응답 헤더 설정
             resp.reset(); //응답헤더를 초기화
 		/*파일 다운로드 창을 띄우기 위한 콘텐츠 타입 지정. octet-stream은 8비트 단위의 바이너리 데이터.
 			octet-stream을 응답헤더로 설정하게 되면 파일종류에 상관없이 웹브라우저는 다운로드 창을 띄움*/

@@ -1,5 +1,3 @@
-<%@ page import="model1.BoardDAO" %>
-<%@ page import="model1.BoardDTO" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -65,7 +63,7 @@
 					<c:choose>
 						<c:when test="${ not (empty bdto.file_name)}">
 							${bdto.file_name}
-							<a href='Download.do?originalFileName=${ URLEncoder.encode(bdto.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(bdto.save_file_name,"utf-8")}&num=${bdto.num}'>다운로드</a>
+							<a href='/download.do?originalFileName=${ URLEncoder.encode(bdto.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(bdto.save_file_name,"utf-8")}&num=${bdto.num}'>다운로드</a>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>

@@ -30,6 +30,11 @@ public class WriteController extends HttpServlet {
 //        파일 업로드
         MultipartRequest mr = Util.FileUtil.uploadFile(req, saveDirectory, maxPostSize);
 
+        if(mr == null){
+            System.out.println("첨부파일이 제한 용량을 초과합니다.");
+            return;
+        }
+        
         BoardDTO bdto = new BoardDTO();
         bdto.setWriter(mr.getParameter("writer"));
         bdto.setTitle(mr.getParameter("title"));

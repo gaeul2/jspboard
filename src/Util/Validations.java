@@ -28,5 +28,7 @@ public class Validations {
         old.renameTo(newFile);
         bdto.setFile_name(fileName);
         bdto.setSave_file_name(newFile.toString());
+        
+//        FileUtil.deleteFile(req, "/uploads", )
     }
 }

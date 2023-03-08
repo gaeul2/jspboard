@@ -21,11 +21,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>글 작성</title>
 		<link rel="stylesheet" href="static/css/style.css">
+		<script type="text/javascript" src="static/js/write.js"></script>
 	</head>
 
 	<body>
 	<div class="container">
-		<form method="post" action="updatePostProc.jsp" accept-charset="utf-8">
+		<form method="post" action="/update.do?num=${bdto.num}" accept-charset="utf-8">
 			<table class="create-or-update-table">
 				<tr>
 					<th>구분<span class="red">*</span></th>
@@ -94,7 +95,17 @@
 				<tr>
 					<th>첨부파일</th>
 					<td>
-						<input type="file" name="file_name">
+						<c:choose>
+							<c:when test="${ not (empty bdto.file_name)}">
+								<input type="file" value="file_name">
+								<span>${bdto.file_name}</span>
+								<a href='/download.do?originalFileName=${ URLEncoder.encode(bdto.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(bdto.save_file_name,"utf-8")}&num=${bdto.num}'>다운로드</a>
+								<input type="hidden" name="prevOriginalFileName" value="${bdto.file_name}">
+								<input type="hidden" name="prevSaveFileName" value="${bdto.save_file_name}">
+							</c:when>
+							<c:otherwise>
+							</c:otherwise>
+						</c:choose>
 					</td>
 				</tr>
 			</table>

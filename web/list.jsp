@@ -53,12 +53,13 @@
 <div class="container">
 	<!--검색기능-->
 	<div class ="search-box">
-		<form method="post" action="" onsubmit="return searchValidate();">
+		<form method="post" action="" onsubmit="return false;">
+			<input type="hidden">
 			제목 <input type="text" name="title_search">
 			작성자 <input type="text" name="writer_search">
 			작성일<input type="date" name="start_date">
 			~ <input type="date" name="end_date">
-			<button >검색</button>
+			<input type="button" value="검색" onclick="searchValidate()">
 		</form>
 	</div>
 	<!--검색값 배열로 저장-->

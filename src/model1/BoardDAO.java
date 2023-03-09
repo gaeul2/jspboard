@@ -18,19 +18,19 @@ public class BoardDAO {
     
     public Connection getcon() {
         Connection con = null;
-        
+
         String server = "localhost:3306";
         String database = "board";
         String user_name = "webuser";
         String password = "1234";
-        
+
         try {
             Class.forName("org.mariadb.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             System.err.println(" 드라이버 로딩 오류 : " + e.getMessage());
             e.printStackTrace();
         }
-        
+
         try {
             con = DriverManager.getConnection("jdbc:mariadb://" +
                     server + "/" +
@@ -62,19 +62,37 @@ public class BoardDAO {
     //전체 게시글 목록 가져오기
     public List<BoardDTO> getAllPost(Map<String, Object> map) {
         List<BoardDTO> blist = new ArrayList<>();
-        
+        int check = 0;
+        String query = "SELECT * FROM board ";
+
+        if (map.get("title") != "") {
+            query += "WHERE title LIKE " + map.get("title");
+            check++;
+        }
+
+        if (map.get("writer") != "") {
+            if (check > 0) {
+                query += "writer LIKE " + map.get("writer");
+            } else {
+                query += "WHERE writer LIKE " + map.get("writer");
+            }
+        }
+
+        if (map.get("start_date") != ""){
+            if(check >0){
+                query += "created_at BETWEEN " + map.get("start_date") + " AND " + map.get("end_date");
+            } else {
+                query += "WHERE created_at BETWEEN " + map.get("start_date") + " AND " + map.get("end_date");
+            }
+        }
+
+        query += "ORDER BY num DESC LIMIT ? OFFSET ?";
+
         String start = map.get("start").toString();
         String limit = map.get("limit").toString();
-        
-        //검색없이 일단 페이징 먼저
+
         try {
-            //검색 구현시 쿼리 변경할 예정
-            String query = "SELECT * FROM board  ";
-            if (map.get("searchThings") != null){
-            
-            }
-            
-            query += "ORDER BY num DESC LIMIT ? OFFSET ?";
+
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1, Integer.parseInt(limit));
             pstmt.setInt(2, Integer.parseInt(start));
@@ -214,4 +232,43 @@ public class BoardDAO {
             e.printStackTrace();
         }
     }
+
+    public int selectCount(Map<String, Object> map) {
+        int totalCount = 0;
+        int check = 0;
+        String sql = "SELECT COUNT(*) FROM board ";
+
+        if (map.get("title") != "") {
+            sql += "WHERE title LIKE " + map.get("title");
+            check++;
+        }
+
+        if (map.get("writer") != "") {
+            if (check > 0) {
+                sql += "writer LIKE " + map.get("writer");
+            } else {
+                sql += "WHERE writer LIKE " + map.get("writer");
+            }
+        }
+
+        if (map.get("start_date") != ""){
+            if(check >0){
+                sql += "created_at BETWEEN " + map.get("start_date") + " AND " + map.get("end_date");
+            } else {
+                sql += "WHERE created_at BETWEEN " + map.get("start_date") + " AND " + map.get("end_date");
+            }
+        }
+
+        try {
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery(sql);
+            rs.next();
+            totalCount = rs.getInt(1);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return totalCount;
+    }
+
 }

@@ -19,42 +19,13 @@
 
 </head>
 <body>
-<%
-	BoardDAO bdao = new BoardDAO();
-	int totalBoardCount = bdao.getAllPostCount();
-//---------------------페이지 처리 시작------------------------//
 
-    //페이지 총 갯수 계산
-    double POSTS_PER_PAGE = 10;
-    int PAGES_PER_BLOCK = 2;
-	int totalPage = (int) Math.ceil(totalBoardCount / POSTS_PER_PAGE);
-
-    //현재 페이지 확인
-	int pageNum = 1; //기본값
-	String currentPage = request.getParameter("pageNum");//파라미터로 받아서 현재 페이지확인
-	if (currentPage != null && !currentPage.equals("")) // 아무것도 안넘어오면 1이고 넘어오면 요청받은 페이지로 바꿔줌
-		pageNum = Integer.parseInt(currentPage);
-
-	//db offset시작번호에 맞게 db인덱스 번호에 맞춘 계산식으로 바꿈(+1만 뺐다.)
-	int start = (int) ((pageNum -1) * POSTS_PER_PAGE);
-
-	//***start 와 limit을 파라미터로 전달!***
-	//파라미터를 key, value로 보내기 위해 HashMap 사용
-	Map<String, Object> param = new HashMap<>();
-	param.put("start", start);
-	param.put("limit", (int) POSTS_PER_PAGE);
-
-//---------------------페이지 처리 끝------------------------//
-
-	List<BoardDTO> blist = bdao.getAllPost(param);
-    bdao.close();
-%>
 <c:set var="blist" value="<%= blist %>"/>
 <div class="container">
 	<!--검색기능-->
 	<div class ="search-box">
-		<form method="post" action="" onsubmit="return false;">
-			<input type="hidden">
+		<form method="post" action="/" onsubmit="return false;">
+			<input type="hidden" >
 			제목 <input type="text" name="title_search">
 			작성자 <input type="text" name="writer_search">
 			작성일<input type="date" name="start_date">

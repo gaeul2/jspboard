@@ -31,6 +31,7 @@ function searchValidate(){
             if (start_date > end_date){
                 alert("검색 시작 날짜를 올바르게 지정해주세요");
                 date_check = 0;
+                start_date = end_date = "";
             }
         } else if(start_date == "" & end_date != ""){
             start_date = "1999-01-01 00:00:00";
@@ -38,18 +39,23 @@ function searchValidate(){
             if (end_date > now){
                 alert("검색 종료 날짜를 오늘 이후로 지정할 수 없습니다.");
                 date_check = 0;
+                start_date = end_date = "";
             }
         } else {
             if (start_date > end_date){
                 alert("검색 시작 날짜를 올바르게 지정해주세요");
                 date_check = 0;
+                start_date = end_date = "";
             }
         }
-        alert(start_date );
-        alert(end_date);
 
     }
+    if(date_check == 1){
+        form.submit();
+    }
 
+    console.log("바뀌나?title"+title);
+    console.log("바뀌나?writer"+writer);
     console.log("바뀌나?start_date"+start_date);
     console.log("바뀌나?end_date"+end_date);
 

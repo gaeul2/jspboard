@@ -7,26 +7,6 @@
 	<title>게시글 상세보기</title>
 </head>
 <body>
-<%--컨트롤러로 이동--%>
-<%--	<%--%>
-<%--		int num = Integer.parseInt(request.getParameter("num"));--%>
-<%--		BoardDAO bdao = new BoardDAO();--%>
-
-<%--        /*--%>
-<%--        return파라미터는--%>
-<%--        	update.jsp에서 수정하다 취소눌렀을 때,--%>
-<%--        	수정 완료 이후,--%>
-<%--        넘겨주도록 함.--%>
-<%--        위의 상황들을 제외하고 게시글 조회시 조회수 값 올려줌.--%>
-<%--         */--%>
-<%--        if (request.getParameter("return") == null){--%>
-<%--        	//hit 늘려주고 (같은 bdao객체 사용하는데 여기서 con.close()닫으면 다음애가 못씀)--%>
-<%--			bdao.hitPlus(num);--%>
-<%--        }--%>
-<%--		//보여주고--%>
-<%--        BoardDTO bdto = bdao.getPost(num);--%>
-<%--	%>--%>
-<%--	<c:set var="post" value="<%= bdto %>"/>--%>
 	<div class="container">
 		<table class="post_table">
 			<tr>

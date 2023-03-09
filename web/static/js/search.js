@@ -7,6 +7,7 @@ function searchValidate(){
     let start_date = form.start_date.value;
     let end_date = form.end_date.value;
     let now = new Date().toISOString().split("T")[0].replace(".","-");
+    let date_check = 0;
     console.log("바뀌기 전 " + start_date);
     console.log("바뀌기 전 " + end_date);
     console.log(now);
@@ -25,11 +26,27 @@ function searchValidate(){
                 alert("검색할 날짜의 범위를 올바르게 지정해주세요")
             }
         } else if (start_date != "" & end_date == ""){
-            end_date = now;
+            start_date += " 00:00:00"
+            end_date = now + " 23:59:99";
             if (start_date > end_date){
                 alert("검색 시작 날짜를 올바르게 지정해주세요");
+                date_check = 0;
+            }
+        } else if(start_date == "" & end_date != ""){
+            start_date = "1999-01-01 00:00:00";
+            end_date += " 23:59:99";
+            if (end_date > now){
+                alert("검색 종료 날짜를 오늘 이후로 지정할 수 없습니다.");
+                date_check = 0;
+            }
+        } else {
+            if (start_date > end_date){
+                alert("검색 시작 날짜를 올바르게 지정해주세요");
+                date_check = 0;
             }
         }
+        alert(start_date );
+        alert(end_date);
 
     }
 

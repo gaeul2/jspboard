@@ -1,10 +1,4 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="model1.BoardDAO" %>
-<%@ page import="java.util.List" %>
-<%@ page import="model1.BoardDTO" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="Util.BoardPage" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -19,8 +13,6 @@
 
 </head>
 <body>
-
-<c:set var="blist" value="<%= blist %>"/>
 <div class="container">
 	<!--검색기능-->
 	<div class ="search-box">
@@ -37,7 +29,7 @@
 	<div class="message-box">
 	</div>
 	<div class=status-wrapper>
-		<div class = "total"><span>Total : <%= totalBoardCount %></span><span> Page : <%= pageNum %>/<%= totalPage %></span></div>
+		<div class = "total"><span>Total : ${ map.totalCount}</span><span> Page : ${map.pageNum}/${map.totalPage}</span></div>
 		<div class = "page"></div></div>
 	<table class="list-table">
 		<colgroup>
@@ -63,26 +55,21 @@
 		</thead>
 		<tbody>
 		<c:choose>
-			<c:when test= "${blist.size() == 0}">
+			<c:when test= "${ empty blist }">
 				<tr>
 					<td colspan="7">작성된 글이 존재 하지 않습니다.</td>
 				</tr>
 			</c:when>
 			<c:otherwise>
-				<%
-					int indexNum = 0;
-					int countNum = 0;
-				%>
-				<c:forEach var="bdto" items="${blist}">
-					<%
-						/* DB에서 들고온 제한된 개수로 offset(start)번호 ~limit개 들고와서 반복문 도니까
-						   위에서부터 게시글 채워지므로 countNum 0 에서 가져온 게시글 수만큼 1씩증가.
-						 */
-						//전체 게시글 갯수 - ((페이지번호-1) * 페이지마다 보여줄 게시글수)
-						indexNum = (int) (totalBoardCount - (((pageNum - 1) * POSTS_PER_PAGE) + countNum++));
-					%>
+				<c:forEach var="bdto" items="${blist}" varStatus="loop">
+
+<%--					/* DB에서 들고온 제한된 개수로 offset(start)번호 ~limit개 들고와서 반복문 도니까--%>
+<%--					 	위에서부터 게시글 채워지므로 countNum 0 에서 가져온 게시글 수만큼 1씩증가.--%>
+<%--					 */--%>
+<%--						//전체 게시글 갯수 - ((페이지번호-1) * 페이지마다 보여줄 게시글수)--%>
+
 					<tr>
-						<td class="num"><%= indexNum %></td>
+						<td class="num">${ map.totalCount - (((map.pageNum - 1)* map.pageSize) + loop.index)}</td>
 						<td class="category">${bdto.subject}</td>
 						<td style="" class="title" id= "post-title" onclick="location.href='view.do?num=${bdto.num}'" >${bdto.title}</td>
 						<td></td><!--첨부파일이미지-->
@@ -99,7 +86,7 @@
 	<div>
 		<a href="write.jsp"><button class="create-btn">글쓰기</button></a>
 	</div>
-	<p> <%= BoardPage.pagingStr(totalBoardCount, (int) POSTS_PER_PAGE, PAGES_PER_BLOCK, pageNum, request.getRequestURI()) %></p>
+	<p> ${map.paging}</p>
 </div>
 </body>
 

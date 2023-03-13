@@ -65,20 +65,21 @@ public class BoardDAO {
         int check = 0;
         String query = "SELECT * FROM board ";
 
-        if (map.get("title") != "") {
+        if (map.get("title") != null) {
             query += "WHERE title LIKE " + map.get("title");
             check++;
         }
 
-        if (map.get("writer") != "") {
+        if (map.get("writer") != null) {
             if (check > 0) {
                 query += "writer LIKE " + map.get("writer");
             } else {
                 query += "WHERE writer LIKE " + map.get("writer");
+                check++;
             }
         }
 
-        if (map.get("start_date") != ""){
+        if (map.get("start_date") != null){
             if(check >0){
                 query += "created_at BETWEEN " + map.get("start_date") + " AND " + map.get("end_date");
             } else {
@@ -143,6 +144,7 @@ public class BoardDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
     }
     
     //검색기능 추가되면 매개변수 받을것
@@ -238,12 +240,12 @@ public class BoardDAO {
         int check = 0;
         String sql = "SELECT COUNT(*) FROM board ";
 
-        if (map.get("title") != "") {
+        if (map.get("title") != null) {
             sql += "WHERE title LIKE " + map.get("title");
             check++;
         }
 
-        if (map.get("writer") != "") {
+        if (map.get("writer") != null) {
             if (check > 0) {
                 sql += "writer LIKE " + map.get("writer");
             } else {
@@ -251,7 +253,7 @@ public class BoardDAO {
             }
         }
 
-        if (map.get("start_date") != ""){
+        if (map.get("start_date") != null){
             if(check >0){
                 sql += "created_at BETWEEN " + map.get("start_date") + " AND " + map.get("end_date");
             } else {

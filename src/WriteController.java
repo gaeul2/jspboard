@@ -61,7 +61,7 @@ public class WriteController extends HttpServlet {
         bdao.createPost(bdto);
 
         //list.jsp열어주는 서블릿과 연결할것.
-        resp.sendRedirect("/list.jsp");
+        resp.sendRedirect("/list.do");
 
     }
 

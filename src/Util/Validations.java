@@ -33,7 +33,7 @@ public class Validations {
 //        FileUtil.deleteFile(req, "/uploads", )
     }
     
-    public static Map<String, Object> searchWordValidation(Map<String, Object> map){
+    public Map<String, Object> searchWordValidation(Map<String, Object> map){
         
         
         return map;

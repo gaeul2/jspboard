@@ -22,7 +22,7 @@
 			작성자 <input type="text" name="writer_search">
 			작성일<input type="date" name="start_date">
 			~ <input type="date" name="end_date">
-			<input type="button" value="검색" onclick="searchValidate()">
+			<input type="button" class="start_search" value="검색" onclick="searchValidate()">
 		</form>
 	</div>
 	<!--검색값 배열로 저장-->
@@ -83,10 +83,14 @@
 
 		</tbody>
 	</table>
-	<div>
-		<a href="write.jsp"><button class="create-btn">글쓰기</button></a>
+	<div class = "lower-wrapper">
+		<div class="pager">
+			${map.paging}
+		</div>
+		<div>
+			<a href="write.jsp"><button class="create-btn">글쓰기</button></a>
+		</div>
 	</div>
-	<p> ${map.paging}</p>
 </div>
 </body>
 

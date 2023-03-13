@@ -85,17 +85,17 @@
 					<input type="file" name="file_name">
 				</td>
 		</tr>
-		<tr>
-			<th>비밀번호</th>
-			<td>
-				<label for="pass"></label>
-				<input type="password" name="pass" id="pass"><span>게시글 수정, 삭제시 사용할 비밀번호를 입력하세요.</span>
-			</td>
-		</tr>
+<%--		<tr>--%>
+<%--			<th>비밀번호</th>--%>
+<%--			<td>--%>
+<%--				<label for="pass"></label>--%>
+<%--				<input type="password" name="pass" id="pass"><span>게시글 수정, 삭제시 사용할 비밀번호를 입력하세요.</span>--%>
+<%--			</td>--%>
+<%--		</tr>--%>
 	</table>
 	<div class = "lower-btn">
 		<input type="button" value="저장" class="button" onclick="inputValidation()">
-		<a href="list.jsp"><input type="button" value="취소" class="button" onclick="inputValidation(this)"></a>
+		<a href="list.jsp" ><input type="button" value="취소" class="button"></a>
 	</div>
 	</form>
 	<!--에러메세지 표시되는 곳 -->

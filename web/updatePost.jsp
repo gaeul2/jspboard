@@ -8,6 +8,7 @@
 </head>
 <body>
 	<%
+		request.setCharacterEncoding("utf-8");
 		int num = Integer.parseInt(request.getParameter("num"));
 
 		BoardDAO bdao = new BoardDAO();

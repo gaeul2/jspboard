@@ -55,7 +55,7 @@ public class ListController extends HttpServlet {
         List<BoardDTO> blist = bdao.getAllPost(param);
         bdao.close();
 
-        String paging = BoardPage.pagingStr(totalCount, (int)posts_per_page, pages_per_block, pageNum, "/");
+        String paging = BoardPage.pagingStr(totalCount, (int)posts_per_page, pages_per_block, pageNum, "/list.do");
 
         param.put("paging", paging);
         param.put("totalCount", totalCount);

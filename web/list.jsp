@@ -29,7 +29,20 @@
 	<div class="message-box">
 	</div>
 	<div class=status-wrapper>
-		<div class = "total"><span>Total : ${ map.totalCount}</span><span> Page : ${map.pageNum}/${map.totalPage}</span></div>
+		<div class = "total">
+			<span>Total :
+				<c:choose>
+					<c:when test='${ map.totalCount == null}'>0</c:when>
+					<c:otherwise>${ map.totalCount}</c:otherwise>
+				</c:choose>
+			</span>
+			<span> Page :
+				<c:choose>
+					<c:when test='${map.totalPage == null}'>0/0</c:when>
+					<c:otherwise>${map.pageNum}/${map.totalPage}</c:otherwise>
+				</c:choose>
+			</span>
+		</div>
 		<div class = "page"></div></div>
 	<table class="list-table">
 		<colgroup>

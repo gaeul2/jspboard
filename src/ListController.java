@@ -13,30 +13,45 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.time.LocalTime.now;
+
 
 @WebServlet(name = "listController", urlPatterns = "/list.do")
 public class ListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BoardDAO bdao = new BoardDAO();
-
+        int totalCount;
         Map<String, Object> param = new HashMap<>();
 
         String title_search = req.getParameter("title_search");
         String writer_search = req.getParameter("writer_search");
         String start_date = req.getParameter("start_date");
         String end_date = req.getParameter("end_date");
-    
-        
-        if (title_search != null | writer_search != null | start_date != null | end_date !=null){
+        System.out.println("title_search" + title_search);
+        if(title_search != null){
+            if(start_date != ""){
+                start_date += " 00:00:00";
+            }
+            if(end_date != ""){
+                end_date += " 23:59:59";
+            }
             param.put("title", title_search);
             param.put("writer", writer_search);
             param.put("start_date", start_date);
             param.put("end_date", end_date);
+
+
+            Validations validator = new Validations();
+            param = validator.searchWordValidation(param);
+            totalCount = bdao.selectCount(param); //게시물 갯수
+            System.out.println("검색");
+        } else {
+            System.out.println("검색no");
+            totalCount = bdao.getAllPostCount();
         }
-        param = Validations.searchWordValidation(param);
-        System.out.println(param.get("title"));
-        int totalCount = bdao.selectCount(param); //게시물 갯수
+
+        System.out.println("totalCount: " +totalCount);
         //---------------------페이지 처리 시작------------------------//
 
         //페이지 총 갯수 계산

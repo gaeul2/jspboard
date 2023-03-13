@@ -1,9 +1,13 @@
 package model1;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static java.time.LocalTime.now;
 
 
 public class BoardDAO {
@@ -20,7 +24,7 @@ public class BoardDAO {
         Connection con = null;
 
         String server = "localhost:3306";
-        String database = "board";
+        String database = "webdb";
         String user_name = "webuser";
         String password = "1234";
 
@@ -64,35 +68,46 @@ public class BoardDAO {
         List<BoardDTO> blist = new ArrayList<>();
         int check = 0;
         String query = "SELECT * FROM board ";
-    
-        System.out.println(map.get("title"));
-        if (map.get("title") != null) {
-            query += "WHERE title LIKE " + map.get("title");
-            check++;
-        }
 
-        if (map.get("writer") != null) {
-            if (check > 0) {
-                query += "writer LIKE " + map.get("writer");
-            } else {
-                query += "WHERE writer LIKE " + map.get("writer");
+        //검색여부확인
+        boolean searchWord = map.containsKey("title");
+        if(searchWord){
+            if (map.get("title") != "") {
+                query += "WHERE title LIKE " + map.get("title") +" ";
                 check++;
             }
-        }
 
-        if (map.get("start_date") != null){
-            if(check >0){
-                query += "created_at BETWEEN " + map.get("start_date") + " AND " + map.get("end_date");
-            } else {
-                query += "WHERE created_at BETWEEN " + map.get("start_date") + " AND " + map.get("end_date");
+            if (map.get("writer") != "") {
+                if (check > 0) {
+                    query += "AND writer LIKE " + map.get("writer") +" ";
+                } else {
+                    query += "WHERE writer LIKE " + map.get("writer") +" ";
+                    check++;
+                }
+            }
+            LocalDate now = LocalDate.now();
+            if (map.get("start_date") != ""){
+                if(check >0){
+                    query += "AND created_at BETWEEN '" + map.get("start_date") + "' AND " + ((map.get("end_date") == "")? "'"+ now + " 23:59:59'" : "'"+map.get("end_date")+"'");
+                } else {
+                    query += "WHERE created_at BETWEEN '" + map.get("start_date") + "' AND " + ((map.get("end_date") == "")? "'"+now + " 23:59:59'" : "'"+map.get("end_date")+"'");
+                    check++;
+                }
+            } else if (map.get("end_date") != ""){
+                if(check >0){
+                    query += " AND created_at BETWEEN '" + ((map.get("start_date") == "")? "1999-01-01 00:00:00" : "'"+map.get("start_date"))+"'"+ " AND '" + map.get("end_date") +"'";
+                } else {
+                    query += "WHERE created_at BETWEEN '" + ((map.get("start_date") == "")? "1999-01-01 00:00:00" : "'"+map.get("start_date"))+"'"+" AND '" + map.get("end_date")+"'";
+                }
             }
         }
 
-        query += "ORDER BY num DESC LIMIT ? OFFSET ?";
+        query += " ORDER BY num DESC LIMIT ? OFFSET ?";
         System.out.println(query);
         String start = map.get("start").toString();
         String limit = map.get("limit").toString();
-
+        System.out.println("limit"+limit);
+        System.out.printf("start" +start);
         try {
 
             pstmt = con.prepareStatement(query);
@@ -241,24 +256,33 @@ public class BoardDAO {
         int check = 0;
         String sql = "SELECT COUNT(*) FROM board ";
 
-        if (map.get("title") != null) {
-            sql += "WHERE title LIKE " + map.get("title");
+        if (map.get("title") != "") {
+            sql += "WHERE title LIKE " + map.get("title") +" ";
             check++;
         }
 
-        if (map.get("writer") != null) {
+        if (map.get("writer") != "") {
             if (check > 0) {
-                sql += "writer LIKE " + map.get("writer");
+                sql += "AND writer LIKE " + map.get("writer");
             } else {
-                sql += "WHERE writer LIKE " + map.get("writer");
+                sql += "WHERE writer LIKE " + map.get("writer") + " ";
+                check++;
             }
         }
 
-        if (map.get("start_date") != null){
+        LocalDate now = LocalDate.now();
+        if (map.get("start_date") != ""){
             if(check >0){
-                sql += "created_at BETWEEN " + map.get("start_date") + " AND " + map.get("end_date");
+                sql += "AND created_at BETWEEN '" + map.get("start_date") + "' AND " + ((map.get("end_date") == "")? "'"+ now + " 23:59:59'" : "'"+map.get("end_date")+"'");
             } else {
-                sql += "WHERE created_at BETWEEN " + map.get("start_date") + " AND " + map.get("end_date");
+                sql += "WHERE created_at BETWEEN '" + map.get("start_date") + "' AND " + ((map.get("end_date") == "")? "'"+now + " 23:59:59'" : "'"+map.get("end_date")+"'");
+                check++;
+            }
+        } else if (map.get("end_date") != ""){
+            if(check >0){
+                sql += " AND created_at BETWEEN '" + ((map.get("start_date") == "")? "1999-01-01 00:00:00" : "'"+map.get("start_date"))+"'"+ " AND '" + map.get("end_date") +"'";
+            } else {
+                sql += "WHERE created_at BETWEEN '" + ((map.get("start_date") == "")? "1999-01-01 00:00:00" : "'"+map.get("start_date"))+"'"+" AND '" + map.get("end_date")+"'";
             }
         }
 

@@ -17,6 +17,7 @@ function searchValidate(){
     } else {
         if (title != "") {
             title = "'%" + title + "%'";
+            form.title_search.value = title;
         }
         if(writer != ""){
             writer = "'%" + writer + "%'";
@@ -50,6 +51,8 @@ function searchValidate(){
         }
 
     }
+
+    alert(form.title_search.value);
     if(date_check == 1){
         form.submit();
     }

@@ -1,4 +1,5 @@
 import Util.BoardPage;
+import Util.Validations;
 import model1.BoardDAO;
 import model1.BoardDTO;
 
@@ -25,14 +26,16 @@ public class ListController extends HttpServlet {
         String writer_search = req.getParameter("writer_search");
         String start_date = req.getParameter("start_date");
         String end_date = req.getParameter("end_date");
-
+    
+        
         if (title_search != null | writer_search != null | start_date != null | end_date !=null){
             param.put("title", title_search);
             param.put("writer", writer_search);
             param.put("start_date", start_date);
             param.put("end_date", end_date);
         }
-
+        param = Validations.searchWordValidation(param);
+        System.out.println(param.get("title"));
         int totalCount = bdao.selectCount(param); //게시물 갯수
         //---------------------페이지 처리 시작------------------------//
 
@@ -40,7 +43,6 @@ public class ListController extends HttpServlet {
         double posts_per_page = 10;
         int pages_per_block = 2;
         int totalPage = (int) Math.ceil(totalCount / posts_per_page);
-        System.out.println(totalPage);
 
         //현재 페이지 확인
         int pageNum = 1; //기본값

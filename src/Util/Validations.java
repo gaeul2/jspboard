@@ -5,6 +5,7 @@ import model1.BoardDTO;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.io.File;
+import java.util.Map;
 
 public class Validations {
     public void typeMakeSentence(BoardDTO bean, String[] type) {
@@ -30,5 +31,11 @@ public class Validations {
         bdto.setSave_file_name(newFile.toString());
         
 //        FileUtil.deleteFile(req, "/uploads", )
+    }
+    
+    public static Map<String, Object> searchWordValidation(Map<String, Object> map){
+        
+        
+        return map;
     }
 }

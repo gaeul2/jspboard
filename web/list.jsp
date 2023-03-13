@@ -16,7 +16,7 @@
 <div class="container">
 	<!--검색기능-->
 	<div class ="search-box">
-		<form method="post" action="/" onsubmit="return false;">
+		<form method="get" action="/list.do" onsubmit="return false;">
 			<input type="hidden" >
 			제목 <input type="text" name="title_search">
 			작성자 <input type="text" name="writer_search">

@@ -64,7 +64,8 @@ public class BoardDAO {
         List<BoardDTO> blist = new ArrayList<>();
         int check = 0;
         String query = "SELECT * FROM board ";
-
+    
+        System.out.println(map.get("title"));
         if (map.get("title") != null) {
             query += "WHERE title LIKE " + map.get("title");
             check++;
@@ -88,7 +89,7 @@ public class BoardDAO {
         }
 
         query += "ORDER BY num DESC LIMIT ? OFFSET ?";
-
+        System.out.println(query);
         String start = map.get("start").toString();
         String limit = map.get("limit").toString();
 

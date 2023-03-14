@@ -65,9 +65,10 @@ public class FileUtil {
     
     public static void deleteFile(HttpServletRequest req, String directory, String filename){
         String saveDirectory = req.getServletContext().getRealPath(directory);
-        File file = new File(saveDirectory + File.separator + filename);
-        if (file.exists()){
-            file.delete();
+        System.out.println("저장위치"+saveDirectory);
+        File targetFile = new File(saveDirectory + File.separator + filename);
+        if (targetFile.exists()){
+            targetFile.delete();
         }
     }
     

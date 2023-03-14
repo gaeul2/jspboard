@@ -241,11 +241,12 @@ public class BoardDAO {
             String deleteSql = "DELETE FROM board WHERE num = ?";
             pstmt = con.prepareStatement(deleteSql);
             pstmt.setInt(1,num);
-            pstmt.executeUpdate();
+            result = pstmt.executeUpdate();
             con.close();
         } catch (Exception e){
             e.printStackTrace();
         }
+        System.out.println(result);
         return result;
     }
 

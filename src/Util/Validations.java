@@ -28,7 +28,7 @@ public class Validations {
         //저장되는 파일 이름 변경
         oldFile.renameTo(newFile);
         bdto.setFile_name(fileName);
-        bdto.setSave_file_name(newFile.toString());
+        bdto.setSave_file_name(newFile.toString().split("uploads")[1].replace("\\",""));
 
 //        FileUtil.deleteFile(req, "/uploads", )
     }

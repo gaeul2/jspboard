@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="static/css/style.css">
 	<title>게시글 상세보기</title>
 </head>
+
 <body>
 	<div class="container">
 		<table class="post_table">
@@ -52,7 +53,7 @@
 			</tr>
 		</table>
 		<div class= "read-lower-wrapper">
-			<a href="/update.do?num=${bdto.num}"><input type="button" value="수정"></a>
+			<a href="/pass.do?mode=edit&num=${bdto.num}"><input type="button" value="수정"></a>
 			<a href="/pass.do?mode=delete&num=${bdto.num}"><input type="button" value="삭제"></a>
 			<a href="<c:url value="/list.do"/>"><input type="button" value="목록"></a>
 		</div>

@@ -216,23 +216,28 @@ public class BoardDAO {
         }
     }
     
-    public void updatePost(BoardDTO updateDto) {
-        try{
-            String updatePostSql = "UPDATE board SET writer=?, title=?, content=?, subject=?, category=?, type=? WHERE num= ?";
+    public int updatePost(BoardDTO updateDto) {
+        int result = 0;
+        try {
+            String updatePostSql = "UPDATE board SET writer=?, title=?, content=?, subject=?, category=?, type=?, pass=?, file_name=?, save_file_name=? WHERE num= ?";
             pstmt = con.prepareStatement(updatePostSql);
-            pstmt.setString(1,updateDto.getWriter());
-            pstmt.setString(2,updateDto.getTitle());
-            pstmt.setString(3,updateDto.getContent());
-            pstmt.setString(4,updateDto.getSubject());
-            pstmt.setString(5,updateDto.getCategory());
-            pstmt.setString(6,updateDto.getType());
-            pstmt.setInt(7,updateDto.getNum());
-            pstmt.executeUpdate();
-            
-        } catch (Exception e){
+            pstmt.setString(1, updateDto.getWriter());
+            pstmt.setString(2, updateDto.getTitle());
+            pstmt.setString(3, updateDto.getContent());
+            pstmt.setString(4, updateDto.getSubject());
+            pstmt.setString(5, updateDto.getCategory());
+            pstmt.setString(6, updateDto.getType());
+            pstmt.setString(7, updateDto.getPass());
+            pstmt.setString(8, updateDto.getFile_name());
+            pstmt.setString(9, updateDto.getSave_file_name());
+            pstmt.setInt(10, updateDto.getNum());
+        
+            result = pstmt.executeUpdate();
+        
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    
+        return result;
     }
     
     public int deletePost(int num) {
@@ -300,6 +305,7 @@ public class BoardDAO {
     public boolean checkPassword(String pass, String num){
         boolean correct = true;
         int pk = Integer.parseInt(num);
+        System.out.println("비밀번호"+pass);
         try {
             String sql = "SELECT COUNT(*) FROM board WHERE pass=? AND num=?";
             pstmt = con.prepareStatement(sql);

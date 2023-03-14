@@ -5,6 +5,7 @@
 <html>
 <head>
 	<title>게시글 수정</title>
+	<script type="text/javascript" src="static/js/write.js"></script>
 </head>
 <body>
 	<%
@@ -27,7 +28,10 @@
 
 	<body>
 	<div class="container">
-		<form method="post" action="/update.do?num=${bdto.num}" accept-charset="utf-8">
+		<form method="post" action="/edit.do" enctype="multipart/form-data" onsubmit="return false;">
+			<input type="hidden" name="num" value="${bdto.num}">
+			<input type="hidden" name="originalFileName" value="${bdto.file_name}">
+			<input type="hidden" name="saveFileName" value="${bdto.save_file_name}">
 			<table class="create-or-update-table">
 				<tr>
 					<th>구분<span class="red">*</span></th>
@@ -105,6 +109,7 @@
 								<input type="hidden" name="prevSaveFileName" value="${bdto.save_file_name}">
 							</c:when>
 							<c:otherwise>
+								<input type="file" name="file_name" onchange="checkSize(this)">
 							</c:otherwise>
 						</c:choose>
 					</td>
@@ -112,7 +117,7 @@
 			</table>
 			<div class = "lower-btn">
 				<input type="hidden" name="return" value="1">
-				<input type="submit" value="저장" class="button">
+				<input type="submit" value="저장" class="button" onclick="inputValidation()">
 				<!--수정하다 취소할 때 조회수 늘리지 않도록 return이라는 파라미터를 1로 넘김-->
 				<a href="/view.do?num=${bdto.num}&return=1"><input type="button" value="취소" class="button"></a>
 			</div>

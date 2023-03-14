@@ -29,8 +29,7 @@ public class Validations {
         oldFile.renameTo(newFile);
         bdto.setFile_name(fileName);
         bdto.setSave_file_name(newFile.toString().split("uploads")[1].replace("\\",""));
-
-//        FileUtil.deleteFile(req, "/uploads", )
+        
     }
 
     public Map<String, Object> searchWordValidation(Map<String, Object> map) {

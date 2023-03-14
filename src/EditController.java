@@ -1,3 +1,5 @@
+import Util.FileUtil;
+import Util.JSFunction;
 import Util.Validations;
 import com.oreilly.servlet.MultipartRequest;
 import model1.BoardDAO;
@@ -9,15 +11,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/update.do")
+@WebServlet("/edit.do")
 public class EditController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String num = req.getParameter("num");
+        int number = Integer.parseInt(num);
         BoardDAO bdao = new BoardDAO();
-        BoardDTO bdto = new BoardDTO();
+        BoardDTO bdto = bdao.getPost(number);
         req.setAttribute("bdto", bdto);
         req.getRequestDispatcher("/updatePost.jsp").forward(req,resp);
     }
@@ -27,23 +31,32 @@ public class EditController extends HttpServlet {
         String saveDirectory = req.getServletContext().getRealPath("/uploads");
         ServletContext application = getServletContext();
         int maxPostSize = 1024* 1000 * 5;
-    
+        
         //        파일 업로드
-        MultipartRequest mr = new MultipartRequest(req, saveDirectory, maxPostSize, "UTF-8");
+        MultipartRequest mr = FileUtil.uploadFile(req, saveDirectory, maxPostSize);
     
         if(mr == null){
-            System.out.println("첨부파일이 제한 용량을 초과합니다.");
+            JSFunction.alertLocation(resp, "파일이 5MB를 초과하였습니다.", "/write.do");
             return;
         }
+        String num = mr.getParameter("num");
+        int number = Integer.parseInt(num);
+        
+        String originalFileName = mr.getParameter("originalFileName");
+        String saveFileName = mr.getParameter("saveFileName");
+        //세션에서 비밀번호 가져옴
+        HttpSession session = req.getSession();
+        String pass = (String)session.getAttribute("pass");
+        
         BoardDTO bdto = new BoardDTO();
+        bdto.setNum(number);
         bdto.setWriter(mr.getParameter("writer"));
         bdto.setTitle(mr.getParameter("title"));
         bdto.setContent(mr.getParameter("content"));
         bdto.setSubject(mr.getParameter("subject"));
         bdto.setCategory(mr.getParameter("category"));
-        bdto.setPass(mr.getParameter("pass"));
+        bdto.setPass(pass);
         
-    
         Validations validator = new Validations();
         //고객유형 처리
         if( mr.getParameterValues("type") != null) {
@@ -55,20 +68,23 @@ public class EditController extends HttpServlet {
         //파일명 처리
         String fileName = mr.getFilesystemName("file_name");
         String prevOriginalFileName = mr.getParameter("prevOriginalFileName");
-        System.out.println("prevOriginalFileName");
-        if (fileName != null){
-            
+        if (fileName != null){ //첨부파일 있으면
             validator.changeFileName(bdto, fileName, saveDirectory);
-            
-            
+            FileUtil.deleteFile(req, "/uploads/", saveFileName); //기존꺼 지우고
         } else {
-        
+            validator.changeFileName(bdto, fileName, saveDirectory);
         }
     
         BoardDAO bdao = new BoardDAO();
+        int result = bdao.updatePost(bdto);
+        bdao.close();
         
-        
-        
+        if(result == 1){
+            session.removeAttribute("pass");
+            resp.sendRedirect("/view.do?num="+num);
+        } else {
+            JSFunction.alertLocation(resp, "비밀번호 검증을 다시 진행해 주세요", "/view.do?num="+num);
+        }
         
     }
 }

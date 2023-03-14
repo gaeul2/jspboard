@@ -64,10 +64,8 @@ public class FileUtil {
     }
     
     public static void deleteFile(HttpServletRequest req, String directory, String filename){
-//        String saveDirectory = req.getServletContext().getRealPath(directory);
-        String saveDirectory = "C:/jspboard/web/uploads";
+        String saveDirectory = req.getServletContext().getRealPath(directory);
         File targetFile = new File(saveDirectory + File.separator + filename);
-        System.out.println("targetFile"+targetFile);
         if (targetFile.exists()){
             targetFile.delete();
         }

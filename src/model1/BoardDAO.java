@@ -20,15 +20,11 @@ public class BoardDAO {
     public Connection getcon() {
         Connection con = null;
 
-//        String server = "localhost:3306";
-//        String database = "board";
-//        String user_name = "webuser";
-//        String password = "1234";
-
         String server = "localhost:3306";
-        String database = "webdb";
-        String user_name = "root";
+        String database = "board";
+        String user_name = "webuser";
         String password = "1234";
+
         try {
             Class.forName("org.mariadb.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -253,7 +249,6 @@ public class BoardDAO {
         } catch (Exception e){
             e.printStackTrace();
         }
-        System.out.println(result);
         return result;
     }
 
@@ -306,7 +301,6 @@ public class BoardDAO {
 
     public boolean checkPassword(String pass, String num){
         boolean correct = true;
-        System.out.println("pass" + pass);
         int pk = Integer.parseInt(num);
         try {
             String sql = "SELECT COUNT(*) FROM board WHERE pass=? AND num=?";

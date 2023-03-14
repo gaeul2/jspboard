@@ -23,8 +23,7 @@ public class WriteController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //    파일 업로드 처리
-//        String saveDirectory = req.getServletContext().getRealPath("/uploads");
-        String saveDirectory = "C:/jspboard/web/uploads";
+        String saveDirectory = req.getServletContext().getRealPath("/uploads");
         int maxPostSize = 1024 * 1000 * 5; //5MB
         
 //        파일 업로드

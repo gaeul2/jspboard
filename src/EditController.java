@@ -29,7 +29,6 @@ public class EditController extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("editdoPost");
         String saveDirectory = req.getServletContext().getRealPath("/uploads");
         ServletContext application = getServletContext();
         int maxPostSize = 1024* 1000 * 5;
@@ -52,7 +51,6 @@ public class EditController extends HttpServlet {
             originalFileName="";
             saveFileName="";
         }
-        System.out.printf("orifile:"+originalFileName);
         //세션에서 비밀번호 가져옴
         HttpSession session = req.getSession();
         String pass = (String)session.getAttribute("pass");
@@ -76,7 +74,6 @@ public class EditController extends HttpServlet {
     
         //파일명 처리
         String fileName = mr.getFilesystemName("file_name");
-        System.out.println("fileName:" + fileName);
         if (fileName != null){ //첨부파일 있으면
             validator.changeFileName(bdto, fileName, saveDirectory);
             if(saveFileName != "") {

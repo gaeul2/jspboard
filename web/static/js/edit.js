@@ -13,8 +13,9 @@ function inputValidation(){
     let category = form.category.value;
     let title = form.title.value;
     let content = form.content.value.trim();
-
     form.content = content.replace(/(?:\r\n|\r|\n)/g, '<br>');
+
+    alert(check.value);
 
     if (subject == "unselect"){
         alert("구분을 선택해 주세요.");
@@ -45,6 +46,17 @@ function inputValidation(){
     }
 
     form.submit();
-
 }
 
+function deleteFile(){
+    let form = document.forms[0];
+    let downloadBtn = document.getElementById("downloadBtn");
+
+    downloadBtn.style.display = 'none';
+
+    let newTag = document.createElement("input")
+    newTag.name="check";
+    newTag.value="1";
+    newTag.style.display='none'
+    form.append(newTag);
+}

@@ -8,14 +8,6 @@
 	<script type="text/javascript" src="static/js/write.js"></script>
 </head>
 <body>
-	<%
-		request.setCharacterEncoding("utf-8");
-		int num = Integer.parseInt(request.getParameter("num"));
-
-		BoardDAO bdao = new BoardDAO();
-		BoardDTO bdto = bdao.getPost(num);
-	%>
-	<c:set var="bdto" value="<%= bdto %>"/>
 	<html>
 	<head>
 		<meta charset="utf-8">
@@ -25,13 +17,13 @@
 		<link rel="stylesheet" href="static/css/style.css">
 		<script type="text/javascript" src="static/js/edit.js"></script>
 	</head>
-
 	<body>
 	<div class="container">
 		<form method="post" action="/edit.do" enctype="multipart/form-data" >
+			<input hidden="hidden"/>
 			<input type="hidden" name="num" value="${bdto.num}">
-			<input type="hidden" name="originalFileName" value="${bdto.file_name}">
-			<input type="hidden" name="saveFileName" value="${bdto.save_file_name}">
+			<input type="hidden" id="filename" name="originalFileName" value="${bdto.file_name}">
+			<input type="hidden" id="savefilename" name="saveFileName" value="${bdto.save_file_name}">
 			<table class="create-or-update-table">
 				<tr>
 					<th>구분<span class="red">*</span></th>
@@ -104,10 +96,11 @@
 							<c:when test="${ not (empty bdto.file_name)}">
 								<input type="file" name="file_name" value="${bdto.save_file_name}">
 								<span>${bdto.file_name}</span>
-								<a href='/download.do?originalFileName=${ URLEncoder.encode(bdto.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(bdto.save_file_name,"utf-8")}&num=${bdto.num}'><button>다운로드</button></a>
+								<a href='/download.do?originalFileName=${ URLEncoder.encode(bdto.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(bdto.save_file_name,"utf-8")}&num=${bdto.num}'><button type="button" id="downloadBtn">다운로드</button></a>
 
 								<input type="hidden" name="prevOriginalFileName" value="${bdto.file_name}">
 								<input type="hidden" name="prevSaveFileName" value="${bdto.save_file_name}">
+								<a onclick="deleteFile()"><button type="button">삭제하기</button></a>
 							</c:when>
 							<c:otherwise>
 								<input type="file" name="file_name" onchange="checkSize(this)">

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Objects;
 
 @WebServlet("/edit.do")
 public class EditController extends HttpServlet {
@@ -40,12 +41,18 @@ public class EditController extends HttpServlet {
             JSFunction.alertLocation(resp, "파일이 5MB를 초과하였습니다.", "/write.do");
             return;
         }
+
         String num = mr.getParameter("num");
         int number = Integer.parseInt(num);
 
         String originalFileName = mr.getParameter("prevOriginalFileName");
         String saveFileName = mr.getParameter("prevSaveFileName");
-        System.out.println("기존파일명"+saveFileName);
+        String filedelete = mr.getParameter("check");
+        if (Objects.equals(filedelete, "1")){
+            originalFileName="";
+            saveFileName="";
+        }
+        System.out.printf("orifile:"+originalFileName);
         //세션에서 비밀번호 가져옴
         HttpSession session = req.getSession();
         String pass = (String)session.getAttribute("pass");
@@ -69,12 +76,16 @@ public class EditController extends HttpServlet {
     
         //파일명 처리
         String fileName = mr.getFilesystemName("file_name");
-
+        System.out.println("fileName:" + fileName);
         if (fileName != null){ //첨부파일 있으면
             validator.changeFileName(bdto, fileName, saveDirectory);
-            FileUtil.deleteFile(req, "/uploads/", saveFileName); //기존꺼 지우고
+            if(saveFileName != "") {
+                FileUtil.deleteFile(req, "/uploads/", saveFileName);//기존꺼 지우고
+            }
+        } else { //첨부파일 없으면
+            bdto.setFile_name(originalFileName);
+            bdto.setSave_file_name(saveFileName);
         }
-    
         BoardDAO bdao = new BoardDAO();
         int result = bdao.updatePost(bdto);
         bdao.close();

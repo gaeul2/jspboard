@@ -42,7 +42,7 @@
 				<th>첨부파일</th>
 				<td>
 					<c:choose>
-						<c:when test="${ bdto.file_name eq ''}">
+						<c:when test="${ bdto.file_name eq '' or bdto.file_name eq null}">
 						</c:when>
 						<c:otherwise>
 							${ bdto.file_name }

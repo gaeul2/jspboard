@@ -95,7 +95,7 @@
 	</table>
 	<div class = "lower-btn">
 		<input type="button" value="저장" class="button" onclick="inputValidation()">
-		<a href="list.jsp" ><input type="button" value="취소" class="button"></a>
+		<a href="/list.do?num=1" ><input type="button" value="취소" class="button"></a>
 	</div>
 	</form>
 	<!--에러메세지 표시되는 곳 -->

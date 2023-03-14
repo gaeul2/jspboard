@@ -23,10 +23,10 @@ public class Validations {
         String now = new SimpleDateFormat("yyyyMMdd_HmsS").format(new Date());
         String newFileName = now + ext;
 
-        File old = new File(saveDirectory + File.separator + fileName);
+        File oldFile = new File(saveDirectory + File.separator + fileName);
         File newFile = new File(saveDirectory + File.separator + newFileName);
         //저장되는 파일 이름 변경
-        old.renameTo(newFile);
+        oldFile.renameTo(newFile);
         bdto.setFile_name(fileName);
         bdto.setSave_file_name(newFile.toString());
 

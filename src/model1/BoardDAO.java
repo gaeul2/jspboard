@@ -122,8 +122,8 @@ public class BoardDAO {
                 bdto.setCreated_at(rs.getDate(8).toString());
                 bdto.setPass(rs.getString(9));
                 bdto.setHit(rs.getInt(10));
-                //파일 구현시
-//                bdto.setFile_name(rs.getString("File_name"));
+                bdto.setFile_name(rs.getString(11));
+                bdto.setSave_file_name(rs.getString(12));
     
                 blist.add(bdto);
             }
@@ -135,7 +135,7 @@ public class BoardDAO {
         return blist;
     }
     
-    public void createPost(BoardDTO bean) {
+    public int createPost(BoardDTO bean) {
         try {
             String createPostSql = "INSERT INTO board (writer, title, content, subject, category, type, created_at, pass,hit,file_name, save_file_name) VALUES(?,?,?,?,?,?,now(),?,?,?,?)";
             pstmt = con.prepareStatement(createPostSql);
@@ -153,8 +153,10 @@ public class BoardDAO {
             
         } catch (Exception e) {
             e.printStackTrace();
+            return 0;
         }
-        
+    
+        return 1;
     }
     
     //검색기능 추가되면 매개변수 받을것

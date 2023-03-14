@@ -134,7 +134,13 @@ body{
 .post-title a {
     text-decoration: none;
 }
-
+.file_row{
+    text-align: center;
+}
+#file_img{
+    width: 15px;
+    height: 15px;
+}
 .file {
     width: 50px;
     text-align: center;

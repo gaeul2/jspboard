@@ -20,6 +20,7 @@ public class FileUtil {
     public static void download(HttpServletRequest req, HttpServletResponse resp, String directory, String saveFilename, String originalFileName){
         String saveDirectory = req.getServletContext().getRealPath(directory);
         System.out.println(saveDirectory);
+        System.out.println(saveFilename);
         
         try{
             File targetFile = new File(saveDirectory, saveFilename);

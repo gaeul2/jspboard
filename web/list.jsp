@@ -1,5 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.net.URLEncoder" %>
 
 <!DOCTYPE html>
 <html>
@@ -85,7 +86,21 @@
 						<td class="num">${ map.totalCount - (((map.pageNum - 1)* map.pageSize) + loop.index)}</td>
 						<td class="category">${bdto.subject}</td>
 						<td style="" class="title" id= "post-title" onclick="location.href='view.do?num=${bdto.num}'" >${bdto.title}</td>
-						<td></td><!--첨부파일이미지-->
+						<c:choose>
+							<c:when	test='${bdto.file_name eq null}'>
+								<td></td>
+							</c:when>
+							<c:otherwise>
+								<td>
+									<div class="file_row">
+
+										<a href='/download.do?originalFileName=${ URLEncoder.encode(bdto.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(bdto.save_file_name,"utf-8")}&num=${bdto.num}'>
+											<img id="file_img" src="/static/img/save-file.png">
+										</a>
+									</div>
+								</td><!--첨부파일이미지-->
+							</c:otherwise>
+						</c:choose>
 						<td class="date">${bdto.created_at}</td>
 						<td class="writer">${bdto.writer}</td>
 						<td class="hit">${bdto.hit}</td>
@@ -101,7 +116,7 @@
 			${map.paging}
 		</div>
 		<div>
-			<a href="write.jsp"><button class="create-btn">글쓰기</button></a>
+			<a href="write.do"><button class="create-btn">글쓰기</button></a>
 		</div>
 	</div>
 </div>

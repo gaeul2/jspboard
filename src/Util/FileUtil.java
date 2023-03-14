@@ -53,20 +53,21 @@ public class FileUtil {
             outputStream.close();
         
         } catch (FileNotFoundException e){
-            System.out.println("파일을 찾을 수 없습니다." );
+            JSFunction.alertBack(resp, "파일을 찾을 수 없습니다.");
             e.printStackTrace();
         
         }
         catch (Exception e){
-            System.out.println("예외가 발생하였습니다.");
+            JSFunction.alertBack(resp, "예외가 발생하였습니다.");
             e.printStackTrace();
         }
     }
     
     public static void deleteFile(HttpServletRequest req, String directory, String filename){
-        String saveDirectory = req.getServletContext().getRealPath(directory);
-        System.out.println("저장위치"+saveDirectory);
+//        String saveDirectory = req.getServletContext().getRealPath(directory);
+        String saveDirectory = "C:/jspboard/web/uploads";
         File targetFile = new File(saveDirectory + File.separator + filename);
+        System.out.println("targetFile"+targetFile);
         if (targetFile.exists()){
             targetFile.delete();
         }

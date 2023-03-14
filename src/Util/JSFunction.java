@@ -22,7 +22,6 @@ public class JSFunction {
     }
     public static void alertBack(HttpServletResponse resp, String msg){
         try{
-            System.out.println("alertBack");
             resp.setContentType("text/html;charset=UTF-8");
             PrintWriter writer = resp.getWriter();
             

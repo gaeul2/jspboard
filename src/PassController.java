@@ -28,7 +28,6 @@ public class PassController extends HttpServlet {
         //비밀번호 확인
         BoardDAO bdao = new BoardDAO();
         boolean checked = bdao.checkPassword(pass, num);
-        
         if(checked){//일치시
             if(mode.equals("edit")){//수정
                 HttpSession session = req.getSession();

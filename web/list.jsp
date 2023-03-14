@@ -93,7 +93,6 @@
 							<c:otherwise>
 								<td>
 									<div class="file_row">
-
 										<a href='/download.do?originalFileName=${ URLEncoder.encode(bdto.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(bdto.save_file_name,"utf-8")}&num=${bdto.num}'>
 											<img id="file_img" src="/static/img/save-file.png">
 										</a>

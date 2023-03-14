@@ -23,12 +23,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>글 작성</title>
 		<link rel="stylesheet" href="static/css/style.css">
-		<script type="text/javascript" src="static/js/write.js"></script>
+		<script type="text/javascript" src="static/js/edit.js"></script>
 	</head>
 
 	<body>
 	<div class="container">
-		<form method="post" action="/edit.do" enctype="multipart/form-data" onsubmit="return false;">
+		<form method="post" action="/edit.do" enctype="multipart/form-data" >
 			<input type="hidden" name="num" value="${bdto.num}">
 			<input type="hidden" name="originalFileName" value="${bdto.file_name}">
 			<input type="hidden" name="saveFileName" value="${bdto.save_file_name}">
@@ -104,7 +104,8 @@
 							<c:when test="${ not (empty bdto.file_name)}">
 								<input type="file" name="file_name" value="${bdto.save_file_name}">
 								<span>${bdto.file_name}</span>
-								<a href='/download.do?originalFileName=${ URLEncoder.encode(bdto.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(bdto.save_file_name,"utf-8")}&num=${bdto.num}'>다운로드</a>
+								<a href='/download.do?originalFileName=${ URLEncoder.encode(bdto.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(bdto.save_file_name,"utf-8")}&num=${bdto.num}'><button>다운로드</button></a>
+
 								<input type="hidden" name="prevOriginalFileName" value="${bdto.file_name}">
 								<input type="hidden" name="prevSaveFileName" value="${bdto.save_file_name}">
 							</c:when>

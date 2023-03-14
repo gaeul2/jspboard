@@ -23,12 +23,12 @@ public class WriteController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //    파일 업로드 처리
-        String saveDirectory = req.getServletContext().getRealPath("/uploads");
+//        String saveDirectory = req.getServletContext().getRealPath("/uploads");
+        String saveDirectory = "C:/jspboard/web/uploads";
         int maxPostSize = 1024 * 1000 * 5; //5MB
         
 //        파일 업로드
         MultipartRequest mr = FileUtil.uploadFile(req, saveDirectory, maxPostSize);
-
         if(mr == null){
             JSFunction.alertLocation(resp, "파일이 5MB를 초과하였습니다.", "/write.do");
             return;
@@ -41,7 +41,7 @@ public class WriteController extends HttpServlet {
         bdto.setSubject(mr.getParameter("subject"));
         bdto.setCategory(mr.getParameter("category"));
         bdto.setPass(mr.getParameter("pass"));
-        
+
 
         Validations validator = new Validations();
         //고객유형 처리

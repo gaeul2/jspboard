@@ -42,11 +42,11 @@
 				<th>첨부파일</th>
 				<td>
 					<c:choose>
-						<c:when test="${ not (empty bdto.file_name)}">
-							${bdto.file_name}
-							<a href='/download.do?originalFileName=${ URLEncoder.encode(bdto.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(bdto.save_file_name,"utf-8")}&num=${bdto.num}'>다운로드</a>
+						<c:when test="${ bdto.file_name eq ''}">
 						</c:when>
 						<c:otherwise>
+							${ bdto.file_name }
+							<a href='/download.do?originalFileName=${ URLEncoder.encode(bdto.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(bdto.save_file_name,"utf-8")}&num=${bdto.num}'><button>다운로드</button></a>
 						</c:otherwise>
 					</c:choose>
 				</td>

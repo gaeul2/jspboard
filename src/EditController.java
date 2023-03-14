@@ -28,22 +28,24 @@ public class EditController extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("editdoPost");
         String saveDirectory = req.getServletContext().getRealPath("/uploads");
         ServletContext application = getServletContext();
         int maxPostSize = 1024* 1000 * 5;
         
-        //        파일 업로드
+        // 파일 업로드
         MultipartRequest mr = FileUtil.uploadFile(req, saveDirectory, maxPostSize);
-    
+
         if(mr == null){
             JSFunction.alertLocation(resp, "파일이 5MB를 초과하였습니다.", "/write.do");
             return;
         }
         String num = mr.getParameter("num");
         int number = Integer.parseInt(num);
-        
-        String originalFileName = mr.getParameter("originalFileName");
-        String saveFileName = mr.getParameter("saveFileName");
+
+        String originalFileName = mr.getParameter("prevOriginalFileName");
+        String saveFileName = mr.getParameter("prevSaveFileName");
+        System.out.println("기존파일명"+saveFileName);
         //세션에서 비밀번호 가져옴
         HttpSession session = req.getSession();
         String pass = (String)session.getAttribute("pass");
@@ -67,12 +69,10 @@ public class EditController extends HttpServlet {
     
         //파일명 처리
         String fileName = mr.getFilesystemName("file_name");
-        String prevOriginalFileName = mr.getParameter("prevOriginalFileName");
+
         if (fileName != null){ //첨부파일 있으면
             validator.changeFileName(bdto, fileName, saveDirectory);
             FileUtil.deleteFile(req, "/uploads/", saveFileName); //기존꺼 지우고
-        } else {
-            validator.changeFileName(bdto, fileName, saveDirectory);
         }
     
         BoardDAO bdao = new BoardDAO();

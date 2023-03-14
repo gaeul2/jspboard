@@ -1,3 +1,4 @@
+import Util.FileUtil;
 import Util.JSFunction;
 import Util.Validations;
 import com.oreilly.servlet.MultipartRequest;
@@ -23,14 +24,13 @@ public class WriteController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //    파일 업로드 처리
         String saveDirectory = req.getServletContext().getRealPath("/uploads");
-        int maxPostSize = 1024 * 1000 * 5;
-
-
+        int maxPostSize = 1024 * 1000 * 5; //5MB
+        
 //        파일 업로드
-        MultipartRequest mr = Util.FileUtil.uploadFile(req, saveDirectory, maxPostSize);
+        MultipartRequest mr = FileUtil.uploadFile(req, saveDirectory, maxPostSize);
 
         if(mr == null){
-            JSFunction.alertLocation(resp, "첨부 파일이 제한 용량을 초과합니다.", "/write.do");
+            JSFunction.alertLocation(resp, "파일이 5MB를 초과하였습니다.", "/write.do");
             return;
         }
         
@@ -66,7 +66,6 @@ public class WriteController extends HttpServlet {
         } else {
             JSFunction.alertLocation(resp, "게시물 작성에 실패했습니다.", "/write.do");
         }
-
     }
 
 }

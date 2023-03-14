@@ -8,7 +8,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class FileUtil {
-    public static MultipartRequest uploadFile(HttpServletRequest req, String saveDirectory, int maxPostSize){
+    public static MultipartRequest uploadFile(HttpServletRequest req, String saveDirectory, int maxPostSize) {
         try{
             return new MultipartRequest(req, saveDirectory, maxPostSize, "UTF-8");
         } catch (Exception e){
@@ -19,8 +19,6 @@ public class FileUtil {
     
     public static void download(HttpServletRequest req, HttpServletResponse resp, String directory, String saveFilename, String originalFileName){
         String saveDirectory = req.getServletContext().getRealPath(directory);
-        System.out.println(saveDirectory);
-        System.out.println(saveFilename);
         
         try{
             File targetFile = new File(saveDirectory, saveFilename);
@@ -64,4 +62,13 @@ public class FileUtil {
             e.printStackTrace();
         }
     }
+    
+    public static void deleteFile(HttpServletRequest req, String directory, String filename){
+        String saveDirectory = req.getServletContext().getRealPath(directory);
+        File file = new File(saveDirectory + File.separator + filename);
+        if (file.exists()){
+            file.delete();
+        }
+    }
+    
 }

@@ -1,4 +1,11 @@
 
+function checkSize(inputFile){
+    console.log(inputFile.files[0].size)
+    if(inputFile.files[0].size > (1024 * 1000 * 5)){
+        alert("파일사이즈는 5MB를 초과할 수 없습니다.");
+        inputFile.value = null;
+    }
+}
 function inputValidation(){
     let form = document.forms[0];
     let subject = form.subject.value;
@@ -6,6 +13,9 @@ function inputValidation(){
     let category = form.category.value;
     let title = form.title.value;
     let content = form.content.value.trim();
+    let password = form.pass.value.trim();
+    let passwordCheck = RegExp(/[0-9]{4}/);
+
     form.content = content.replace(/(?:\r\n|\r|\n)/g, '<br>');
 
     if (subject == "unselect"){
@@ -35,13 +45,14 @@ function inputValidation(){
         alert("내용은 필수 입력사항입니다.")
         return false;
     }
+    if (password != ""){
+        if(!passwordCheck.test(password)){
+            alert("숫자 4자리를 입력해 주세요.")
+            return false;
+        }
+    }
 
     form.submit();
-
-// textarea안의 내용을 받아와서 \r\n부분을 모두 <br>tag로 replace 적용해서 DB에 저장을 하면 DB안에 <br>tag가 같이 저장이 된다.
-
-// 반대로 DB에서 가져올때 <br> 을 개행문자(\r\n) 로 변환하면 된다.
-
 
 }
 

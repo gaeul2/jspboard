@@ -235,7 +235,8 @@ public class BoardDAO {
     
     }
     
-    public void deletePost(int num) {
+    public int deletePost(int num) {
+        int result = 0;
         try{
             String deleteSql = "DELETE FROM board WHERE num = ?";
             pstmt = con.prepareStatement(deleteSql);
@@ -245,6 +246,7 @@ public class BoardDAO {
         } catch (Exception e){
             e.printStackTrace();
         }
+        return result;
     }
 
     public int selectCount(Map<String, Object> map) {
@@ -294,4 +296,23 @@ public class BoardDAO {
         return totalCount;
     }
 
+    public boolean checkPassword(String pass, String num){
+        boolean correct = true;
+        int pk = Integer.parseInt(num);
+        try {
+            String sql = "SELECT COUNT(*) FROM board WHERE pass=? AND num=?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, pass);
+            pstmt.setInt(2, pk);
+            rs = pstmt.executeQuery();
+            rs.next();
+            if(rs.getInt(1) == 0){
+                correct = false;
+            }
+        } catch (SQLException e) {
+            correct = false;
+            e.printStackTrace();
+        }
+        return correct;
+    }
 }

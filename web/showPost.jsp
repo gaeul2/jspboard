@@ -53,7 +53,7 @@
 		</table>
 		<div class= "read-lower-wrapper">
 			<a href="/update.do?num=${bdto.num}"><input type="button" value="수정"></a>
-			<a href="<c:url value="/deletePostProc.jsp"><c:param name="num" value="${bdto.num}"/></c:url>"><input type="button" value="삭제"></a>
+			<a href="/pass.do?mode=delete&num=${bdto.num}"><input type="button" value="삭제"></a>
 			<a href="<c:url value="/list.do"/>"><input type="button" value="목록"></a>
 		</div>
 	</div>

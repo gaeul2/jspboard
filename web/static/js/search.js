@@ -40,18 +40,16 @@ function searchValidate(){
             } else {
                 check = 1;
             }
-        } else if(start_date == "" & end_date != ""  & dateTypeCheck.test(end_date)){
+        } else if(start_date == "" & end_date != ""  & dateTypeCheck.test(end_date)) {
             start_date = "1999-01-01 00:00:00";
             end_date += " 23:59:59";
-            if (start_date > end_date){
+            if (start_date > end_date) {
                 alert("검색 종료 날짜를 올바르게 지정해주세요.");
                 check = 0;
                 start_date = end_date = "";
             } else {
                 check = 1;
             }
-        } else {
-            alert("검색 날짜를 바르게 지정해 주세요");
         }
     }
 

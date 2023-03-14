@@ -2,12 +2,9 @@ package model1;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import static java.time.LocalTime.now;
 
 
 public class BoardDAO {
@@ -24,7 +21,7 @@ public class BoardDAO {
         Connection con = null;
 
         String server = "localhost:3306";
-        String database = "webdb";
+        String database = "board";
         String user_name = "webuser";
         String password = "1234";
 
@@ -103,11 +100,8 @@ public class BoardDAO {
         }
 
         query += " ORDER BY num DESC LIMIT ? OFFSET ?";
-        System.out.println(query);
         String start = map.get("start").toString();
         String limit = map.get("limit").toString();
-        System.out.println("limit"+limit);
-        System.out.printf("start" +start);
         try {
 
             pstmt = con.prepareStatement(query);

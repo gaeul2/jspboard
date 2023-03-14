@@ -13,8 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.time.LocalTime.now;
-
 
 @WebServlet(name = "listController", urlPatterns = "/list.do")
 public class ListController extends HttpServlet {
@@ -28,7 +26,6 @@ public class ListController extends HttpServlet {
         String writer_search = req.getParameter("writer_search");
         String start_date = req.getParameter("start_date");
         String end_date = req.getParameter("end_date");
-        System.out.println("title_search" + title_search);
         if(title_search != null){
             if(start_date != ""){
                 start_date += " 00:00:00";
@@ -45,13 +42,10 @@ public class ListController extends HttpServlet {
             Validations validator = new Validations();
             param = validator.searchWordValidation(param);
             totalCount = bdao.selectCount(param); //게시물 갯수
-            System.out.println("검색");
         } else {
-            System.out.println("검색no");
             totalCount = bdao.getAllPostCount();
         }
 
-        System.out.println("totalCount: " +totalCount);
         //---------------------페이지 처리 시작------------------------//
 
         //페이지 총 갯수 계산

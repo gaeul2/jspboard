@@ -5,7 +5,7 @@
 
 	BoardDAO bdao = new BoardDAO();
     bdao.deletePost(num);
-
-    response.sendRedirect("/list.jsp");
+	String msg = "삭제가 완료되었습니다.";
+    response.sendRedirect("/list.do?num=1");
 %>
 <h2>delete.jsp</h2>

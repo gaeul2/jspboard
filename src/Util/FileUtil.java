@@ -4,10 +4,7 @@ import com.oreilly.servlet.MultipartRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class FileUtil {
@@ -22,6 +19,7 @@ public class FileUtil {
     
     public static void download(HttpServletRequest req, HttpServletResponse resp, String directory, String saveFilename, String originalFileName){
         String saveDirectory = req.getServletContext().getRealPath(directory);
+        System.out.println(saveDirectory);
         
         try{
             File targetFile = new File(saveDirectory, saveFilename);
@@ -44,6 +42,17 @@ public class FileUtil {
             resp.setHeader("Content-Disposition", "attachment; filename=\"" + originalFileName + "\"");
             resp.setHeader("Content-Length", "" + targetFile.length());
     
+            OutputStream outputStream = resp.getOutputStream();
+            
+            //출력스트림에 파일내용 출력
+            byte b[] = new byte[(int) targetFile.length()];
+            int readBuffer = 0;
+            while ((readBuffer = inputStream.read(b)) > 0 ){
+                outputStream.write(b, 0, readBuffer);
+            }
+            inputStream.close();
+            outputStream.close();
+        
         } catch (FileNotFoundException e){
             System.out.println("파일을 찾을 수 없습니다." );
             e.printStackTrace();

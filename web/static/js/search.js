@@ -22,7 +22,7 @@ function searchValidate(){
         }
         if ( start_date != "" & end_date != ""){
             start_date += " 00:00:00"
-            end_date += " 23:59:99";
+            end_date += " 23:59:59";
             if (start_date > end_date){
                 alert("검색할 날짜의 범위를 올바르게 지정해주세요")
                 check = 0;
@@ -31,7 +31,7 @@ function searchValidate(){
             }
         } else if (start_date != "" & end_date == ""){
             start_date += " 00:00:00"
-            end_date = now + " 23:59:99";
+            end_date = now + " 23:59:59";
             if (start_date > end_date){
                 alert("검색 시작 날짜를 올바르게 지정해주세요");
                 check = 0;

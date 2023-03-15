@@ -1,5 +1,4 @@
-<%@ page import="model1.BoardDAO" %>
-<%@ page import="model1.BoardDTO" %>
+<%@ page import="java.net.URLEncoder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>

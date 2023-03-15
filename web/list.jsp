@@ -16,16 +16,28 @@
 <body>
 <div class="container">
 	<!--검색기능-->
-	<div class ="search-box">
-		<form method="get" action="/list.do" onsubmit="return false;">
-			<input type="hidden" >
-			제목 <input type="text" name="title_search">
-			작성자 <input type="text" name="writer_search">
-			작성일<input type="date" name="start_date">
-			~ <input type="date" name="end_date">
-			<input type="button" class="start_search" value="검색" onclick="searchValidate()">
-		</form>
-	</div>
+	<form method="get" action="/list.do" onsubmit="return false;">
+		<div class ="search-box">
+			<input type="hidden">
+				<div class="title-search">
+					<label for="title-search">제목</label>
+					<input type="text" name="title_search" id="title-search">
+				</div>
+				<div class="writer-search">
+					<label for="writer-search">작성자</label>
+					<input type="text" name="writer_search" id="writer-search">
+				</div>
+				<div class="search-date">
+					<label for="start-date">작성일</label>
+					<input type="date" name="start_date" id="start-date">
+					~ <input type="date" name="end_date" id="end-date">
+				</div>
+				<div class="search-btn">
+					<button id="start_search" onclick="searchValidate()">검색</button>
+				</div>
+<%--			<input type="button" id="start_search" value="검색" onclick="searchValidate()">--%>
+		</div>
+	</form>
 	<!--검색값 배열로 저장-->
 	<div class="message-box">
 	</div>
@@ -37,6 +49,9 @@
 					<c:otherwise>${ map.totalCount}</c:otherwise>
 				</c:choose>
 			</span>
+
+		</div>
+		<div class = "page">
 			<span> Page :
 				<c:choose>
 					<c:when test='${map.totalPage == null}'>0/0</c:when>
@@ -44,7 +59,14 @@
 				</c:choose>
 			</span>
 		</div>
-		<div class = "page"></div></div>
+		<div class="return">
+			<c:choose>
+				<c:when test="${ searchCheck > 0 }">
+					<a href="list.do?num=1"><button>전체 목록으로 돌아가기</button></a>
+				</c:when>
+			</c:choose>
+		</div>
+	</div>
 	<table class="list-table">
 		<colgroup>
 			<col style="width: 10%;">

@@ -51,12 +51,30 @@ function inputValidation(){
 function deleteFile(){
     let form = document.forms[0];
     let downloadBtn = document.getElementById("downloadBtn");
+    let deleteBtn = document.getElementById("deleteBtn")
+    let cancelBtn = document.getElementById("cancelBtn")
 
     downloadBtn.style.display = 'none';
+    deleteBtn.style.display = 'none';
+    cancelBtn.style.display = 'initial';
 
     let newTag = document.createElement("input")
     newTag.name="check";
     newTag.value="1";
+    newTag.id="checkInput"
     newTag.style.display='none'
     form.append(newTag);
+}
+
+function cancelDelete(){
+    let form = document.forms[0];
+    let downloadBtn = document.getElementById("downloadBtn");
+    let deleteBtn = document.getElementById("deleteBtn");
+    let cancelBtn = document.getElementById("cancelBtn");
+    let check = document.getElementById("checkInput");
+
+    check.remove();
+    downloadBtn.style.display = 'inline-block';
+    deleteBtn.style.display = 'initial';
+    cancelBtn.style.display = 'none';
 }

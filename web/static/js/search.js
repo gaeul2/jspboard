@@ -55,12 +55,6 @@ function searchValidate(){
 
     if(check == 1){
         form.submit();
-        let returnBtn = document.createElement('input');
-        returnBtn.type = 'button'
-        returnBtn.value = '목록으로 돌아가기';
-        returnBtn.className = 'returnBtn';
-        let search_box = document.getElementsByClassName("search-box");
-        search_box.appendChild(returnBtn);
     }
 
 }

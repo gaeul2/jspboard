@@ -20,6 +20,7 @@ public class ListController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BoardDAO bdao = new BoardDAO();
         int totalCount;
+        int check = 0;
         Map<String, Object> param = new HashMap<>();
 
         String title_search = req.getParameter("title_search");
@@ -42,6 +43,7 @@ public class ListController extends HttpServlet {
             Validations validator = new Validations();
             param = validator.searchWordValidation(param);
             totalCount = bdao.selectCount(param); //게시물 갯수
+            check++;
         } else {
             totalCount = bdao.getAllPostCount();
         }
@@ -76,6 +78,7 @@ public class ListController extends HttpServlet {
 
         req.setAttribute("blist", blist);
         req.setAttribute("map", param);
+        req.setAttribute("searchCheck", check);
         req.getRequestDispatcher("/list.jsp").forward(req,resp);
 
     }

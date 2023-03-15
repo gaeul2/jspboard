@@ -7,12 +7,9 @@ body{
     margin: 7% auto;
     width: 90%;
 }
-.message-box p{
-    width: 90%;
-    color: darkred;
-    margin: 10px auto;
-    text-align: end;
-}
+/*.message-box {*/
+/*    width: 90%;*/
+/*}*/
 .search-box{
     font-size: 17px;
     display: flex;
@@ -25,22 +22,60 @@ body{
     border: 2px solid rgba(84, 84, 84, 0.628);
     margin: 0 auto;
 }
-.search-box input{
-    width: 170px;
-    height: 30px;
-    margin-left: 10px;
-    margin-right:10px;
-    border: 2px solid grey;
+/*.search-box input{*/
+/*    width: 33%;*/
+/*    height: 30px;*/
+/*    margin-left: 10px;*/
+/*    margin-right: 10px;*/
+/*    border: 2px solid grey;*/
+/*    min-width: 100px;*/
+/*}*/
+.title-search{
+    width: 23%;
+    max-width: 200px;
 }
-.search-box .start_search{
+#title-search{
+    width: 70%;
+    max-width: 151px;
+    height: 23px;
+}
+.writer-search{
+    width: 28%;
+    max-width: 216px;
+}
+#writer-search{
+    width: 80%;
+    max-width: 137px;
+    height: 23px;
+}
+.search-date{
+    width: 39%;
+    max-width: 322px;
+}
+#start-date{
+    width: 107px;
+    height: 24px;
+}
+#end-date{
+    width: 107px;
+    height: 24px;
+}
+.search-btn{
+    width: 9%;
+}
+
+#start_search{
     width: 66px;
     height: 36px;
-    font-size: 17px;
+    font-size: 16px;
     border-radius: 10px;
     font-weight: bold;
     color: rgba(71, 68, 68, 0.837);
     border-color: #3c4349;
     vertical-align: middle;
+    max-width: 66px;
+    min-width: 48px;
+
 }
 
 .status-wrapper{
@@ -51,6 +86,16 @@ body{
 }
 .page{
     margin-left: 20px;
+}
+.return{
+    margin-left: 20px;
+}
+.return button{
+    height: 26px;
+    text-align: center;
+    background-color: #efc159bf;
+    border: white;
+    border-radius: 10px;
 }
 .list-table{
     /*테이블 테두리 하나씩만 쓰도록*/
@@ -74,7 +119,8 @@ body{
     border-bottom: 1px solid #ccc;
     height : 20px;
     font-size: 16px;
-    background-color:floralwhite
+    background-color:floralwhite;
+    text-align: center;
 }
 .lower-wrapper{
     margin: 30px auto 0 auto;
@@ -130,6 +176,7 @@ body{
 #post-title{
     text-align: start;
     cursor: pointer;
+    padding-left: 6px;
 }
 .post-title a {
     text-decoration: none;
@@ -311,4 +358,18 @@ body{
     border: 1px solid #00062d;
     color: white;
     font-weight: bold;
+}
+
+#cancelBtn {
+    display: none;
+}
+
+.pass-box{
+    width: 68%;
+    margin: 44px auto;
+}
+
+.info{
+    font-size: 12px;
+    margin-left: 5px;
 }

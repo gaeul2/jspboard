@@ -23,7 +23,7 @@ public class FileUtil {
         try{
             File targetFile = new File(saveDirectory, saveFilename);
             InputStream inputStream = new FileInputStream(targetFile);
-    
+            
             //한글파일명 깨짐방지
             String client = req.getHeader("User-Agent");
             if (client.indexOf("WOW64") == -1 ){ // 인터넷 익스플로러가 아닌 경우

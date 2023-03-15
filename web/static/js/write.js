@@ -16,7 +16,7 @@ function inputValidation(){
     let password = form.pass.value.trim();
     let passwordCheck = RegExp(/[0-9]{4}/);
 
-    form.content = content.replace(/(?:\r\n|\r|\n)/g, '<br>');
+    form.content = content.replaceAll(/(?:\r\n|\r|\n)/g, '<br>');
 
     if (subject == "unselect"){
         alert("구분을 선택해 주세요.");

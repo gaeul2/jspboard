@@ -97,10 +97,10 @@
 								<input type="file" name="file_name" value="${bdto.save_file_name}">
 								<span>${bdto.file_name}</span>
 								<a href='/download.do?originalFileName=${ URLEncoder.encode(bdto.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(bdto.save_file_name,"utf-8")}&num=${bdto.num}'><button type="button" id="downloadBtn">다운로드</button></a>
-
 								<input type="hidden" name="prevOriginalFileName" value="${bdto.file_name}">
 								<input type="hidden" name="prevSaveFileName" value="${bdto.save_file_name}">
-								<a onclick="deleteFile()"><button type="button">삭제하기</button></a>
+								<a onclick="deleteFile()"><button type="button" id="deleteBtn">삭제하기</button></a>
+								<a onclick="cancelDelete()"><button type="button" id="cancelBtn">파일삭제취소</button></a>
 							</c:when>
 							<c:otherwise>
 								<input type="file" name="file_name" onchange="checkSize(this)">

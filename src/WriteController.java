@@ -49,7 +49,7 @@ public class WriteController extends HttpServlet {
         } else {
             bdto.setType("");
         }
-
+        
         //파일명 처리
         String fileName = mr.getFilesystemName("file_name");
         if (fileName != null){

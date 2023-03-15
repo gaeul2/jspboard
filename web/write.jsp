@@ -89,7 +89,7 @@
 			<th>비밀번호</th>
 			<td>
 				<label for="pass"></label>
-				<input type="password" name="pass" id="pass"><span>게시글 수정, 삭제시 사용할 비밀번호를 숫자 4자리로 입력하세요.</span>
+				<input type="password" name="pass" id="pass"><span class="info">게시글 수정, 삭제시 사용할 비밀번호를 숫자 4자리로 입력하세요.</span>
 			</td>
 		</tr>
 	</table>

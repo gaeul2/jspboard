@@ -1,9 +1,10 @@
+import Util.FileUtil;
+import Util.JSFunction;
 import Util.Validations;
 import com.oreilly.servlet.MultipartRequest;
 import model1.BoardDAO;
 import model1.BoardDTO;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,13 +24,15 @@ public class WriteController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //    파일 업로드 처리
         String saveDirectory = req.getServletContext().getRealPath("/uploads");
-        ServletContext application = getServletContext();
-        int maxPostSize = 1024* 1000 * 5;
-
-
+        int maxPostSize = 1024 * 1000 * 5; //5MB
+        
 //        파일 업로드
-        MultipartRequest mr = Util.File.uploadFile(req, saveDirectory, maxPostSize);
-
+        MultipartRequest mr = FileUtil.uploadFile(req, saveDirectory, maxPostSize);
+        if(mr == null){
+            JSFunction.alertLocation(resp, "파일이 5MB를 초과하였습니다.", "/write.do");
+            return;
+        }
+        
         BoardDTO bdto = new BoardDTO();
         bdto.setWriter(mr.getParameter("writer"));
         bdto.setTitle(mr.getParameter("title"));
@@ -38,6 +41,7 @@ public class WriteController extends HttpServlet {
         bdto.setCategory(mr.getParameter("category"));
         bdto.setPass(mr.getParameter("pass"));
 
+
         Validations validator = new Validations();
         //고객유형 처리
         if( mr.getParameterValues("type") != null) {
@@ -45,7 +49,7 @@ public class WriteController extends HttpServlet {
         } else {
             bdto.setType("");
         }
-
+        
         //파일명 처리
         String fileName = mr.getFilesystemName("file_name");
         if (fileName != null){
@@ -53,11 +57,14 @@ public class WriteController extends HttpServlet {
         }
 
         BoardDAO bdao = new BoardDAO();
-        bdao.createPost(bdto);
-
-        //list.jsp열어주는 서블릿과 연결할것.
-        resp.sendRedirect("/list.jsp");
-
+        int result = bdao.createPost(bdto);
+        bdao.close();
+        
+        if(result == 1) {
+            JSFunction.alertLocation(resp, "게시물 작성이 완료되었습니다.", "/list.do");
+        } else {
+            JSFunction.alertLocation(resp, "게시물 작성에 실패했습니다.", "/write.do");
+        }
     }
 
 }

@@ -1,19 +1,12 @@
-<%@ page import="model1.BoardDAO" %>
-<%@ page import="model1.BoardDTO" %>
+<%@ page import="java.net.URLEncoder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 	<title>게시글 수정</title>
+	<script type="text/javascript" src="static/js/write.js"></script>
 </head>
 <body>
-	<%
-		int num = Integer.parseInt(request.getParameter("num"));
-
-		BoardDAO bdao = new BoardDAO();
-		BoardDTO bdto = bdao.getPost(num);
-	%>
-	<c:set var="bdto" value="<%= bdto %>"/>
 	<html>
 	<head>
 		<meta charset="utf-8">
@@ -21,11 +14,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>글 작성</title>
 		<link rel="stylesheet" href="static/css/style.css">
+		<script type="text/javascript" src="static/js/edit.js"></script>
 	</head>
-
 	<body>
 	<div class="container">
-		<form method="post" action="updatePostProc.jsp" accept-charset="utf-8">
+		<form method="post" action="/edit.do" enctype="multipart/form-data" >
+			<input hidden="hidden"/>
+			<input type="hidden" name="num" value="${bdto.num}">
+			<input type="hidden" id="filename" name="prevOriginalFileName" value="${bdto.file_name}">
+			<input type="hidden" id="savefilename" name="prevSaveFileName" value="${bdto.save_file_name}">
 			<table class="create-or-update-table">
 				<tr>
 					<th>구분<span class="red">*</span></th>
@@ -94,22 +91,33 @@
 				<tr>
 					<th>첨부파일</th>
 					<td>
-						<input type="file" name="file_name">
+						<c:choose>
+							<c:when test="${ not (empty bdto.file_name)}">
+								<input type="file" name="file_name" value="${bdto.save_file_name}">
+								<span>${bdto.file_name}</span>
+								<a href='/download.do?originalFileName=${ URLEncoder.encode(bdto.file_name,"utf-8")}&saveFileName=${ URLEncoder.encode(bdto.save_file_name,"utf-8")}&num=${bdto.num}'><button type="button" id="downloadBtn">다운로드</button></a>
+								<input type="hidden" name="prevOriginalFileName" value="${bdto.file_name}">
+								<input type="hidden" name="prevSaveFileName" value="${bdto.save_file_name}">
+								<a onclick="deleteFile()"><button type="button" id="deleteBtn">삭제하기</button></a>
+								<a onclick="cancelDelete()"><button type="button" id="cancelBtn">파일삭제취소</button></a>
+								<p class="warn">이미 게시글에 첨부파일이 있는 상태에서 새로운 파일을 올리면 기존파일은 삭제됩니다.</p>
+							</c:when>
+							<c:otherwise>
+								<input type="file" name="file_name" onchange="checkSize(this)">
+							</c:otherwise>
+						</c:choose>
 					</td>
 				</tr>
 			</table>
 			<div class = "lower-btn">
-				<!--proc에서 bdto받을때 쓸까?싶어서 넣어놓음-->
-				<input type="hidden" name="num" value="${bdto.num}">
 				<input type="hidden" name="return" value="1">
-				<input type="submit" value="저장" class="button">
+				<input type="submit" value="저장" class="button" onclick="inputValidation()">
 				<!--수정하다 취소할 때 조회수 늘리지 않도록 return이라는 파라미터를 1로 넘김-->
-				<a href="showPost.jsp?"><input type="button" value="취소" class="button"></a>
+				<a href="/view.do?num=${bdto.num}&return=1"><input type="button" value="취소" class="button"></a>
 			</div>
 		</form>
 		<!--에러메세지 표시되는 곳 -->
 		<div id="error">
-
 		</div>
 	</div>
 	</body>

@@ -82,20 +82,20 @@
 		<tr>
 			<th>첨부파일</th>
 				<td>
-					<input type="file" name="file_name">
+					<input type="file" name="file_name" onchange="checkSize(this)">
 				</td>
 		</tr>
 		<tr>
 			<th>비밀번호</th>
 			<td>
 				<label for="pass"></label>
-				<input type="password" name="pass" id="pass"><span>게시글 수정, 삭제시 사용할 비밀번호를 입력하세요.</span>
+				<input type="password" name="pass" id="pass"><span class="info">게시글 수정, 삭제시 사용할 비밀번호를 숫자 4자리로 입력하세요.</span>
 			</td>
 		</tr>
 	</table>
 	<div class = "lower-btn">
 		<input type="button" value="저장" class="button" onclick="inputValidation()">
-		<a href="list.jsp"><input type="button" value="취소" class="button" onclick="inputValidation(this)"></a>
+		<a href="/list.do?num=1" ><input type="button" value="취소" class="button"></a>
 	</div>
 	</form>
 	<!--에러메세지 표시되는 곳 -->

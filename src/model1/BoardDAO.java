@@ -1,6 +1,7 @@
 package model1;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,27 +19,25 @@ public class BoardDAO {
     
     public Connection getcon() {
         Connection con = null;
-        
+
         String server = "localhost:3306";
         String database = "board";
         String user_name = "webuser";
         String password = "1234";
-        
+
         try {
             Class.forName("org.mariadb.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             System.err.println(" 드라이버 로딩 오류 : " + e.getMessage());
             e.printStackTrace();
         }
-        
+
         try {
             con = DriverManager.getConnection("jdbc:mariadb://" +
                     server + "/" +
                     database +
                     "?useSSL=false", user_name, password); // SSL 실행 확인
-            System.out.println("연결 성공");
         } catch (SQLException e) {
-            System.err.println("에러 내용 :" + e.getMessage());
             e.printStackTrace();
         }
 
@@ -62,19 +61,47 @@ public class BoardDAO {
     //전체 게시글 목록 가져오기
     public List<BoardDTO> getAllPost(Map<String, Object> map) {
         List<BoardDTO> blist = new ArrayList<>();
-        
+        int check = 0;
+        String query = "SELECT * FROM board ";
+
+        //검색여부확인
+        boolean searchWord = map.containsKey("title");
+        if(searchWord){
+            if (map.get("title") != "") {
+                query += "WHERE title LIKE " + map.get("title") +" ";
+                check++;
+            }
+
+            if (map.get("writer") != "") {
+                if (check > 0) {
+                    query += "AND writer LIKE " + map.get("writer") +" ";
+                } else {
+                    query += "WHERE writer LIKE " + map.get("writer") +" ";
+                    check++;
+                }
+            }
+            LocalDate now = LocalDate.now();
+            if (map.get("start_date") != ""){
+                if(check >0){
+                    query += "AND created_at BETWEEN '" + map.get("start_date") + "' AND " + ((map.get("end_date") == "")? "'"+ now + " 23:59:59'" : "'"+map.get("end_date")+"'");
+                } else {
+                    query += "WHERE created_at BETWEEN '" + map.get("start_date") + "' AND " + ((map.get("end_date") == "")? "'"+now + " 23:59:59'" : "'"+map.get("end_date")+"'");
+                    check++;
+                }
+            } else if (map.get("end_date") != ""){
+                if(check >0){
+                    query += " AND created_at BETWEEN '" + ((map.get("start_date") == "")? "1999-01-01 00:00:00" : "'"+map.get("start_date"))+"'"+ " AND '" + map.get("end_date") +"'";
+                } else {
+                    query += "WHERE created_at BETWEEN '" + ((map.get("start_date") == "")? "1999-01-01 00:00:00" : "'"+map.get("start_date"))+"'"+" AND '" + map.get("end_date")+"'";
+                }
+            }
+        }
+
+        query += " ORDER BY num DESC LIMIT ? OFFSET ?";
         String start = map.get("start").toString();
         String limit = map.get("limit").toString();
-        
-        //검색없이 일단 페이징 먼저
         try {
-            //검색 구현시 쿼리 변경할 예정
-            String query = "SELECT * FROM board  ";
-            if (map.get("searchThings") != null){
-            
-            }
-            
-            query += "ORDER BY num DESC LIMIT ? OFFSET ?";
+
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1, Integer.parseInt(limit));
             pstmt.setInt(2, Integer.parseInt(start));
@@ -93,8 +120,8 @@ public class BoardDAO {
                 bdto.setCreated_at(rs.getDate(8).toString());
                 bdto.setPass(rs.getString(9));
                 bdto.setHit(rs.getInt(10));
-                //파일 구현시
-//                bdto.setFile_name(rs.getString("File_name"));
+                bdto.setFile_name(rs.getString(11));
+                bdto.setSave_file_name(rs.getString(12));
     
                 blist.add(bdto);
             }
@@ -106,7 +133,7 @@ public class BoardDAO {
         return blist;
     }
     
-    public void createPost(BoardDTO bean) {
+    public int createPost(BoardDTO bean) {
         try {
             String createPostSql = "INSERT INTO board (writer, title, content, subject, category, type, created_at, pass,hit,file_name, save_file_name) VALUES(?,?,?,?,?,?,now(),?,?,?,?)";
             pstmt = con.prepareStatement(createPostSql);
@@ -124,7 +151,10 @@ public class BoardDAO {
             
         } catch (Exception e) {
             e.printStackTrace();
+            return 0;
         }
+    
+        return 1;
     }
     
     //검색기능 추가되면 매개변수 받을것
@@ -184,34 +214,108 @@ public class BoardDAO {
         }
     }
     
-    public void updatePost(BoardDTO updateDto) {
-        try{
-            String updatePostSql = "UPDATE board SET writer=?, title=?, content=?, subject=?, category=?, type=? WHERE num= ?";
+    public int updatePost(BoardDTO updateDto) {
+        int result = 0;
+        try {
+            String updatePostSql = "UPDATE board SET writer=?, title=?, content=?, subject=?, category=?, type=?, pass=?, file_name=?, save_file_name=? WHERE num= ?";
             pstmt = con.prepareStatement(updatePostSql);
-            pstmt.setString(1,updateDto.getWriter());
-            pstmt.setString(2,updateDto.getTitle());
-            pstmt.setString(3,updateDto.getContent());
-            pstmt.setString(4,updateDto.getSubject());
-            pstmt.setString(5,updateDto.getCategory());
-            pstmt.setString(6,updateDto.getType());
-            pstmt.setInt(7,updateDto.getNum());
-            pstmt.executeUpdate();
-            
-        } catch (Exception e){
+            pstmt.setString(1, updateDto.getWriter());
+            pstmt.setString(2, updateDto.getTitle());
+            pstmt.setString(3, updateDto.getContent());
+            pstmt.setString(4, updateDto.getSubject());
+            pstmt.setString(5, updateDto.getCategory());
+            pstmt.setString(6, updateDto.getType());
+            pstmt.setString(7, updateDto.getPass());
+            pstmt.setString(8, updateDto.getFile_name());
+            pstmt.setString(9, updateDto.getSave_file_name());
+            pstmt.setInt(10, updateDto.getNum());
+        
+            result = pstmt.executeUpdate();
+        
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    
+        return result;
     }
     
-    public void deletePost(int num) {
+    public int deletePost(int num) {
+        int result = 0;
         try{
             String deleteSql = "DELETE FROM board WHERE num = ?";
             pstmt = con.prepareStatement(deleteSql);
             pstmt.setInt(1,num);
-            pstmt.executeUpdate();
+            result = pstmt.executeUpdate();
             con.close();
         } catch (Exception e){
             e.printStackTrace();
         }
+        return result;
+    }
+
+    public int selectCount(Map<String, Object> map) {
+        int totalCount = 0;
+        int check = 0;
+        String sql = "SELECT COUNT(*) FROM board ";
+
+        if (map.get("title") != "") {
+            sql += "WHERE title LIKE " + map.get("title") +" ";
+            check++;
+        }
+
+        if (map.get("writer") != "") {
+            if (check > 0) {
+                sql += "AND writer LIKE " + map.get("writer");
+            } else {
+                sql += "WHERE writer LIKE " + map.get("writer") + " ";
+                check++;
+            }
+        }
+
+        LocalDate now = LocalDate.now();
+        if (map.get("start_date") != ""){
+            if(check >0){
+                sql += "AND created_at BETWEEN '" + map.get("start_date") + "' AND " + ((map.get("end_date") == "")? "'"+ now + " 23:59:59'" : "'"+map.get("end_date")+"'");
+            } else {
+                sql += "WHERE created_at BETWEEN '" + map.get("start_date") + "' AND " + ((map.get("end_date") == "")? "'"+now + " 23:59:59'" : "'"+map.get("end_date")+"'");
+                check++;
+            }
+        } else if (map.get("end_date") != ""){
+            if(check >0){
+                sql += " AND created_at BETWEEN '" + ((map.get("start_date") == "")? "1999-01-01 00:00:00" : "'"+map.get("start_date"))+"'"+ " AND '" + map.get("end_date") +"'";
+            } else {
+                sql += "WHERE created_at BETWEEN '" + ((map.get("start_date") == "")? "1999-01-01 00:00:00" : "'"+map.get("start_date"))+"'"+" AND '" + map.get("end_date")+"'";
+            }
+        }
+
+        try {
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery(sql);
+            rs.next();
+            totalCount = rs.getInt(1);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return totalCount;
+    }
+
+    public boolean checkPassword(String pass, String num){
+        boolean correct = true;
+        int pk = Integer.parseInt(num);
+        try {
+            String sql = "SELECT COUNT(*) FROM board WHERE pass=? AND num=?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, pass);
+            pstmt.setInt(2, pk);
+            rs = pstmt.executeQuery();
+            rs.next();
+            if(rs.getInt(1) == 0){
+                correct = false;
+            }
+        } catch (SQLException e) {
+            correct = false;
+            e.printStackTrace();
+        }
+        return correct;
     }
 }

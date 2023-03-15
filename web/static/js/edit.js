@@ -13,10 +13,9 @@ function inputValidation(){
     let category = form.category.value;
     let title = form.title.value;
     let content = form.content.value.trim();
-    let password = form.pass.value.trim();
-    let passwordCheck = RegExp(/[0-9]{4}/);
+    form.content = content.replace(/(?:\r\n|\r|\n)/g, '<br>');
 
-    form.content = content.replaceAll(/(?:\r\n|\r|\n)/g, '<br>');
+    alert(check.value);
 
     if (subject == "unselect"){
         alert("구분을 선택해 주세요.");
@@ -34,6 +33,7 @@ function inputValidation(){
         return false;
     }
 
+
     if (category == ""){
         alert("분류를 선택해 주세요.")
         return false;
@@ -49,19 +49,43 @@ function inputValidation(){
         form.title.focus();
         return false;
     }
+
     if (content == ""){
         form.content.focus();
         alert("내용은 필수 입력사항입니다.")
         return false;
     }
-    if (password != ""){
-        if(!passwordCheck.test(password)){
-            alert("숫자 4자리를 입력해 주세요.")
-            return false;
-        }
-    }
 
     form.submit();
-
 }
 
+function deleteFile(){
+    let form = document.forms[0];
+    let downloadBtn = document.getElementById("downloadBtn");
+    let deleteBtn = document.getElementById("deleteBtn")
+    let cancelBtn = document.getElementById("cancelBtn")
+
+    downloadBtn.style.display = 'none';
+    deleteBtn.style.display = 'none';
+    cancelBtn.style.display = 'initial';
+
+    let newTag = document.createElement("input")
+    newTag.name="check";
+    newTag.value="1";
+    newTag.id="checkInput"
+    newTag.style.display='none'
+    form.append(newTag);
+}
+
+function cancelDelete(){
+    let form = document.forms[0];
+    let downloadBtn = document.getElementById("downloadBtn");
+    let deleteBtn = document.getElementById("deleteBtn");
+    let cancelBtn = document.getElementById("cancelBtn");
+    let check = document.getElementById("checkInput");
+
+    check.remove();
+    downloadBtn.style.display = 'inline-block';
+    deleteBtn.style.display = 'initial';
+    cancelBtn.style.display = 'none';
+}

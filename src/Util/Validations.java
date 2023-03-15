@@ -49,5 +49,11 @@ public class Validations {
             }
         }
         return map;
-        }
+    }
+    
+    public String ChangeBr(String content){
+        content.replaceAll("/(?:\r\n|\r|\n)/g", "<br>");
+        System.out.println("내용"+content);
+        return content;
+    }
 }

@@ -47,6 +47,7 @@ public class EditController extends HttpServlet {
         String originalFileName = mr.getParameter("prevOriginalFileName");
         String saveFileName = mr.getParameter("prevSaveFileName");
         String filedelete = mr.getParameter("check");
+        String targetDelete = saveFileName;
         if (Objects.equals(filedelete, "1")){
             originalFileName="";
             saveFileName="";
@@ -76,12 +77,15 @@ public class EditController extends HttpServlet {
         String fileName = mr.getFilesystemName("file_name");
         if (fileName != null){ //첨부파일 있으면
             validator.changeFileName(bdto, fileName, saveDirectory);
-            if(saveFileName != "") {
-                FileUtil.deleteFile(req, "/uploads/", saveFileName);//기존꺼 지우고
+            if(Objects.equals(filedelete, "1") | !Objects.equals(saveFileName, "")) {
+                FileUtil.deleteFile(req, "/uploads/", targetDelete);//기존꺼 지우고
             }
         } else { //첨부파일 없으면
             bdto.setFile_name(originalFileName);
             bdto.setSave_file_name(saveFileName);
+            if(Objects.equals(filedelete, "1")) {
+                FileUtil.deleteFile(req, "/uploads/", targetDelete);//기존꺼 지우고
+            }
         }
         BoardDAO bdao = new BoardDAO();
         int result = bdao.updatePost(bdto);

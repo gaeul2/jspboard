@@ -21,8 +21,8 @@
 		<form method="post" action="/edit.do" enctype="multipart/form-data" >
 			<input hidden="hidden"/>
 			<input type="hidden" name="num" value="${bdto.num}">
-			<input type="hidden" id="filename" name="originalFileName" value="${bdto.file_name}">
-			<input type="hidden" id="savefilename" name="saveFileName" value="${bdto.save_file_name}">
+			<input type="hidden" id="filename" name="prevOriginalFileName" value="${bdto.file_name}">
+			<input type="hidden" id="savefilename" name="prevSaveFileName" value="${bdto.save_file_name}">
 			<table class="create-or-update-table">
 				<tr>
 					<th>구분<span class="red">*</span></th>
@@ -100,6 +100,7 @@
 								<input type="hidden" name="prevSaveFileName" value="${bdto.save_file_name}">
 								<a onclick="deleteFile()"><button type="button" id="deleteBtn">삭제하기</button></a>
 								<a onclick="cancelDelete()"><button type="button" id="cancelBtn">파일삭제취소</button></a>
+								<p class="warn">이미 게시글에 첨부파일이 있는 상태에서 새로운 파일을 올리면 기존파일은 삭제됩니다.</p>
 							</c:when>
 							<c:otherwise>
 								<input type="file" name="file_name" onchange="checkSize(this)">

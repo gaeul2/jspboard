@@ -109,7 +109,7 @@
 						<td class="category">${bdto.subject}</td>
 						<td style="" class="title" id= "post-title" onclick="location.href='view.do?num=${bdto.num}'" >${bdto.title}</td>
 						<c:choose>
-							<c:when	test='${bdto.file_name eq null}'>
+							<c:when	test='${bdto.file_name eq null or bdto.file_name eq ""}'>
 								<td></td>
 							</c:when>
 							<c:otherwise>

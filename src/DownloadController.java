@@ -13,8 +13,10 @@ public class DownloadController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String originalFileName = req.getParameter("originalFileName");
         String saveFileName = req.getParameter("saveFileName");
-        if (saveFileName.contains("uploads"))
+    
+        if (saveFileName.contains("uploads")) {
             saveFileName = saveFileName.split("uploads")[1].replace("\\","");
+        }
         String num = req.getParameter("num");
         
         //파일 다운로드

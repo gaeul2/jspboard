@@ -27,6 +27,12 @@ function inputValidation(){
         alert("작성자는 필수 입력사항입니다.")
         return false;
     }
+    if(writer.length > 25){
+        alert("작성자는 25자 이내로 입력해 주세요.");
+        form.writer.focus();
+        return false;
+    }
+
 
     if (category == ""){
         alert("분류를 선택해 주세요.")
@@ -36,6 +42,11 @@ function inputValidation(){
     if (title == ""){
         form.title.focus();
         alert("제목은 필수 입력사항입니다.")
+        return false;
+    }
+    if(title.length > 50){
+        alert("제목은 50자 이내로 입력해 주세요.");
+        form.title.focus();
         return false;
     }
 
